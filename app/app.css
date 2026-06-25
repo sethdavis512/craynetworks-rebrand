@@ -37,6 +37,11 @@
   --warning: oklch(0.72 0.13 75);
   --danger: oklch(0.55 0.17 25);
 
+  /* accessible foreground shades for colored text on light tints (e.g. soft badges) */
+  --primary-strong: oklch(0.46 var(--primary-c) var(--primary-h));
+  --success-strong: oklch(0.43 0.13 150);
+  --danger-strong: oklch(0.47 0.17 25);
+
   /* overlay scrim (dark in both themes) */
   --scrim: oklch(0.15 0.02 245 / 0.5);
 
@@ -67,6 +72,9 @@
   --success: oklch(0.7 0.13 150);
   --warning: oklch(0.8 0.13 75);
   --danger: oklch(0.68 0.17 25);
+  --primary-strong: oklch(0.8 var(--primary-c) var(--primary-h));
+  --success-strong: oklch(0.8 0.13 150);
+  --danger-strong: oklch(0.78 0.17 25);
   --scrim: oklch(0.08 0.02 245 / 0.65);
 }
 
@@ -89,6 +97,9 @@
   --color-info: var(--info);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
+  --color-primary-strong: var(--primary-strong);
+  --color-success-strong: var(--success-strong);
+  --color-danger-strong: var(--danger-strong);
   --color-scrim: var(--scrim);
 
   --font-sans: var(--font-heading);
