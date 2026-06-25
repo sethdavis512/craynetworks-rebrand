@@ -1,8 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { DEFAULT_THEME_STATE, serialize, THEME_COOKIE, type ThemeState } from "./theme-state";
+import { DEFAULT_THEME_STATE, FONT_STACKS, serialize, THEME_COOKIE, type ThemeState } from "./theme-state";
 
 type AccentPatch = Partial<ThemeState["accent"]>;
-type ThemePatch = Partial<Omit<ThemeState, "accent">> & { accent?: AccentPatch };
+type TypePatch = Partial<ThemeState["type"]>;
+type ThemePatch = Partial<Omit<ThemeState, "accent" | "type">> & { accent?: AccentPatch; type?: TypePatch };
 
 type ThemeContextValue = {
   state: ThemeState;
@@ -12,7 +13,17 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const CHANNEL_PROPS = ["--primary-l", "--primary-c", "--primary-h", "--radius-base", "--spacing"] as const;
+const OVERRIDE_PROPS = [
+  "--primary-l",
+  "--primary-c",
+  "--primary-h",
+  "--radius-base",
+  "--spacing",
+  "--font-body",
+  "--body-weight",
+  "--body-opsz",
+  "--tracking",
+] as const;
 
 /** Apply the override layer as inline CSS vars on <html>. Consumers read vars, so they never re-render. */
 function applyToDom(state: ThemeState) {
@@ -22,13 +33,20 @@ function applyToDom(state: ThemeState) {
   root.style.setProperty("--primary-h", String(state.accent.h));
   root.style.setProperty("--radius-base", `${state.radius}rem`);
   root.style.setProperty("--spacing", `${state.density}rem`);
+  // typography (cascades to all rem-sized text + inherited body type)
+  root.style.fontSize = `${Math.round(state.type.scale * 100)}%`;
+  root.style.setProperty("--font-body", state.type.family === "serif" ? FONT_STACKS.serif : FONT_STACKS.sans);
+  root.style.setProperty("--body-weight", String(state.type.weight));
+  root.style.setProperty("--body-opsz", String(state.type.opsz));
+  root.style.setProperty("--tracking", `${state.type.tracking}em`);
   root.classList.toggle("dark", state.mode === "dark");
 }
 
 /** Clear the override layer entirely, revealing the canonical app.css system underneath. */
 function clearDom() {
   const root = document.documentElement;
-  for (const prop of CHANNEL_PROPS) root.style.removeProperty(prop);
+  for (const prop of OVERRIDE_PROPS) root.style.removeProperty(prop);
+  root.style.removeProperty("font-size");
   root.classList.remove("dark");
 }
 
@@ -55,6 +73,7 @@ export function ThemeProvider({ initialState, children }: { initialState: ThemeS
       ...prev,
       ...patch,
       accent: { ...prev.accent, ...(patch.accent ?? {}) },
+      type: { ...prev.type, ...(patch.type ?? {}) },
     }));
   }, []);
 

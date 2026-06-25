@@ -3,7 +3,14 @@ import { z } from "zod";
 /** Cookie name shared by the server reader and the client persister. */
 export const THEME_COOKIE = "cray_theme";
 
+/** Body font stacks (kept here so SSR and the client provider agree). */
+export const FONT_STACKS = {
+  serif: '"Literata Variable", ui-serif, Georgia, "Times New Roman", serif',
+  sans: '"Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif',
+} as const;
+
 export const ModeSchema = z.enum(["light", "dark"]);
+export const FamilySchema = z.enum(["serif", "sans"]);
 
 /**
  * Versioned, validated theme override state. Pure and serializable so it can live in a cookie
@@ -20,6 +27,15 @@ export const ThemeStateSchema = z.object({
     .default({ l: 0.58, c: 0.11, h: 232 }),
   radius: z.coerce.number().min(0).max(2).default(0.625),
   density: z.coerce.number().min(0.15).max(0.4).default(0.25),
+  type: z
+    .object({
+      family: FamilySchema.default("serif"),
+      scale: z.coerce.number().min(0.85).max(1.2).default(1),
+      weight: z.coerce.number().min(300).max(700).default(400),
+      opsz: z.coerce.number().min(7).max(72).default(18),
+      tracking: z.coerce.number().min(-0.05).max(0.08).default(0),
+    })
+    .default({ family: "serif", scale: 1, weight: 400, opsz: 18, tracking: 0 }),
 });
 
 export type ThemeState = z.infer<typeof ThemeStateSchema>;
@@ -35,6 +51,11 @@ export function serialize(state: ThemeState): string {
     ah: String(state.accent.h),
     r: String(state.radius),
     s: String(state.density),
+    tf: state.type.family,
+    ts: String(state.type.scale),
+    tw: String(state.type.weight),
+    to: String(state.type.opsz),
+    tk: String(state.type.tracking),
   }).toString();
 }
 
@@ -47,6 +68,13 @@ export function deserialize(input: string | null | undefined): ThemeState {
     accent: { l: p.get("al") ?? undefined, c: p.get("ac") ?? undefined, h: p.get("ah") ?? undefined },
     radius: p.get("r") ?? undefined,
     density: p.get("s") ?? undefined,
+    type: {
+      family: p.get("tf") ?? undefined,
+      scale: p.get("ts") ?? undefined,
+      weight: p.get("tw") ?? undefined,
+      opsz: p.get("to") ?? undefined,
+      tracking: p.get("tk") ?? undefined,
+    },
   };
   const result = ThemeStateSchema.safeParse(candidate);
   return result.success ? result.data : DEFAULT_THEME_STATE;

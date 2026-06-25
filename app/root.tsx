@@ -12,7 +12,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { readTheme } from "./theme/theme-cookie.server";
-import { DEFAULT_THEME_STATE, type ThemeState } from "./theme/theme-state";
+import { DEFAULT_THEME_STATE, FONT_STACKS, type ThemeState } from "./theme/theme-state";
 import { ThemeProvider } from "./theme/ThemeProvider";
 import { ThemeDrawer } from "./components/controls/ThemeDrawer";
 
@@ -27,6 +27,11 @@ function channelStyle(theme: ThemeState): CSSProperties {
     "--primary-h": theme.accent.h,
     "--radius-base": `${theme.radius}rem`,
     "--spacing": `${theme.density}rem`,
+    "--font-body": theme.type.family === "serif" ? FONT_STACKS.serif : FONT_STACKS.sans,
+    "--body-weight": theme.type.weight,
+    "--body-opsz": theme.type.opsz,
+    "--tracking": `${theme.type.tracking}em`,
+    fontSize: `${Math.round(theme.type.scale * 100)}%`,
   } as CSSProperties;
 }
 

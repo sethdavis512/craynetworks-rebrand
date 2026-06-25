@@ -42,6 +42,11 @@
   --success-strong: oklch(0.43 0.13 150);
   --danger-strong: oklch(0.47 0.17 25);
 
+  /* typography (overridable globally by the theme drawer) */
+  --body-weight: 400;
+  --body-opsz: 18;
+  --tracking: 0em;
+
   /* overlay scrim (dark in both themes) */
   --scrim: oklch(0.15 0.02 245 / 0.5);
 
@@ -75,6 +80,7 @@
   --primary-strong: oklch(0.8 var(--primary-c) var(--primary-h));
   --success-strong: oklch(0.8 0.13 150);
   --danger-strong: oklch(0.78 0.17 25);
+  --body-weight: 380;
   --scrim: oklch(0.08 0.02 245 / 0.65);
 }
 
@@ -117,6 +123,9 @@
     background-color: var(--surface);
     color: var(--ink);
     font-family: var(--font-body);
+    font-weight: var(--body-weight);
+    font-variation-settings: "opsz" var(--body-opsz);
+    letter-spacing: var(--tracking);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -139,10 +148,5 @@
 
   p {
     text-wrap: pretty;
-  }
-
-  /* light type on dark needs more breathing room */
-  .dark body {
-    font-weight: 380;
   }
 }

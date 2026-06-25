@@ -8,6 +8,7 @@ describe("theme-state", () => {
       accent: { l: 0.6, c: 0.12, h: 200 },
       radius: 1,
       density: 0.3,
+      type: { family: "sans" as const, scale: 1.1, weight: 500, opsz: 24, tracking: 0.02 },
     };
     expect(deserialize(serialize(state))).toEqual(state);
   });

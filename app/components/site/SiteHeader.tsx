@@ -37,7 +37,20 @@ export function SiteHeader() {
                 aria-label="Join with a code"
                 className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:bg-surface-2 hover:text-ink"
               >
-                <img src={joinIcon} alt="" className="size-5" />
+                <span
+                  aria-hidden="true"
+                  className="size-5 bg-current"
+                  style={{
+                    maskImage: `url(${joinIcon})`,
+                    WebkitMaskImage: `url(${joinIcon})`,
+                    maskSize: "contain",
+                    WebkitMaskSize: "contain",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskRepeat: "no-repeat",
+                    maskPosition: "center",
+                    WebkitMaskPosition: "center",
+                  }}
+                />
                 ConnectWise
               </button>
             }
