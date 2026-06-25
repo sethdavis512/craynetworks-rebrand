@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { Link } from "react-router";
 import { Sheet } from "../ui/Sheet";
 import { Button } from "../ui/Button";
 import { useTheme } from "../../theme/ThemeProvider";
@@ -23,13 +24,21 @@ export function ThemeDrawer() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="fixed bottom-5 right-5 z-30 rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm font-medium text-ink shadow-lg transition-colors hover:bg-surface-2"
-      >
-        Theme
-      </button>
+      <div className="fixed bottom-5 right-5 z-30 flex items-center gap-2">
+        <Link
+          to="/admin"
+          className="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm font-medium text-ink shadow-lg transition-colors hover:bg-surface-2"
+        >
+          Admin
+        </Link>
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm font-medium text-ink shadow-lg transition-colors hover:bg-surface-2"
+        >
+          Theme
+        </button>
+      </div>
 
       <Sheet
         open={open}

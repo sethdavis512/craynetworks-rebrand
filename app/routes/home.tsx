@@ -1,13 +1,11 @@
-import { useState } from "react";
 import { Link } from "react-router";
 import { motion } from "motion/react";
 import type { Route } from "./+types/home";
-import { Logo } from "../components/brand/Logo";
-import { Button, buttonVariants } from "../components/ui/Button";
-import { Card } from "../components/ui/Card";
+import { buttonVariants } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
-import { Banner } from "../components/ui/Banner";
-import { Input } from "../components/ui/Input";
+import { SiteHeader } from "../components/site/SiteHeader";
+import { SiteFooter } from "../components/site/SiteFooter";
+import { ContactForm } from "../components/site/ContactForm";
 import { useReducedMotion } from "../lib/useReducedMotion";
 
 export function meta({}: Route.MetaArgs) {
@@ -21,13 +19,13 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-type Service = { name: string; body: string; featured?: boolean };
+type Service = { slug: string; name: string; body: string; featured?: boolean };
 
 const services: Service[] = [
-  { name: "IT & network management", body: "Proactive monitoring and maintenance, so problems get fixed before you ever notice them.", featured: true },
-  { name: "Computer repair", body: "Drop-off or on-site fixes for the desktop, laptop, or server that simply will not cooperate." },
-  { name: "Web hosting", body: "Fast, dependable hosting for your site and email, kept patched and backed up." },
-  { name: "Web design & development", body: "Sites that look right and work right, built by people down the road." },
+  { slug: "network-management", name: "IT & network management", body: "Proactive monitoring and maintenance, so problems get fixed before you ever notice them.", featured: true },
+  { slug: "computer-repair", name: "Computer repair", body: "Drop-off or on-site fixes for the desktop, laptop, or server that simply will not cooperate." },
+  { slug: "web-hosting", name: "Web hosting", body: "Fast, dependable hosting for your site and email, kept patched and backed up." },
+  { slug: "web-design", name: "Web design & development", body: "Sites that look right and work right, built by people down the road." },
 ];
 
 const values = [
@@ -72,30 +70,13 @@ function NetworkMotif() {
 
 function ServiceCard({ s }: { s: Service }) {
   return (
-    <Card className="h-full transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/40">
+    <Link
+      to={`/services/${s.slug}`}
+      className="block h-full rounded-lg border border-border bg-surface-2 p-6 transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/40"
+    >
       <h3 className="font-sans text-lg font-semibold text-ink">{s.name}</h3>
       <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
-    </Card>
-  );
-}
-
-function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
-  if (submitted) {
-    return <Banner tone="success">Thanks. We will be in touch within one business day.</Banner>;
-  }
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSubmitted(true);
-      }}
-      className="flex flex-col gap-3 sm:flex-row"
-    >
-      <Input name="name" aria-label="Your name" placeholder="Your name" required className="sm:flex-1" />
-      <Input type="email" name="email" aria-label="Email" placeholder="you@business.com" required className="sm:flex-1" />
-      <Button type="submit">Request a quote</Button>
-    </form>
+    </Link>
   );
 }
 
@@ -106,21 +87,7 @@ export default function Home() {
 
   return (
     <div>
-      <header className="sticky top-0 z-20 border-b border-border bg-surface">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link to="/" aria-label="Cray Networks home">
-            <Logo />
-          </Link>
-          <nav className="flex items-center gap-1 sm:gap-3">
-            <a href="#services" className="hidden rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:text-ink sm:inline-block">
-              Services
-            </a>
-            <a href="#contact" className={buttonVariants({ size: "sm" })}>
-              Request a quote
-            </a>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Drenched navy hero (owns the brand color in both themes). Always visible: no entrance gating. */}
       <section className="relative isolate overflow-hidden bg-navy text-on-navy">
@@ -164,7 +131,10 @@ export default function Home() {
           </p>
 
           {featured ? (
-            <Card className="mt-8 border-primary/40">
+            <Link
+              to={`/services/${featured.slug}`}
+              className="mt-8 block rounded-lg border border-primary/40 bg-surface-2 p-6 transition-colors hover:border-primary/60"
+            >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <div className="flex items-center gap-3">
@@ -173,17 +143,15 @@ export default function Home() {
                   </div>
                   <p className="mt-2 max-w-xl leading-relaxed text-muted">{featured.body}</p>
                 </div>
-                <a href="#contact" className={buttonVariants({ size: "sm" })}>
-                  Get started
-                </a>
+                <span className="shrink-0 font-sans text-sm font-medium text-primary-strong">Learn more &rarr;</span>
               </div>
-            </Card>
+            </Link>
           ) : null}
 
           {reduced ? (
             <div className="mt-4 grid gap-4 sm:grid-cols-3">
               {trio.map((s) => (
-                <ServiceCard key={s.name} s={s} />
+                <ServiceCard key={s.slug} s={s} />
               ))}
             </div>
           ) : (
@@ -195,7 +163,7 @@ export default function Home() {
               viewport={{ once: true, margin: "-12% 0px" }}
             >
               {trio.map((s) => (
-                <motion.div key={s.name} variants={item}>
+                <motion.div key={s.slug} variants={item}>
                   <ServiceCard s={s} />
                 </motion.div>
               ))}
@@ -203,7 +171,7 @@ export default function Home() {
           )}
         </section>
 
-        {/* Why Cray (static; type + rhythm carry it) */}
+        {/* Why Cray */}
         <section className="border-t border-border py-20">
           <h2 className="text-3xl font-semibold tracking-tight text-ink">Why Cray</h2>
           <div className="mt-8 grid gap-8 sm:grid-cols-3">
@@ -243,16 +211,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-4 px-6 py-10 sm:flex-row sm:items-center">
-          <Logo />
-          <nav className="flex gap-4 font-sans text-sm text-muted">
-            <a href="#services" className="hover:text-ink">Services</a>
-            <a href="#contact" className="hover:text-ink">Contact</a>
-          </nav>
-          <p className="font-sans text-sm text-muted">Central Texas IT, since 2003.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
