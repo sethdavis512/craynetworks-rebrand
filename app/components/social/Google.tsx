@@ -3,10 +3,10 @@ import { cn } from "../../lib/cn";
 export function Google({ className }: { className?: string }) {
   return (
     <a
-      href="https://plus.google.com/101679989497427928956/about"
+      href="https://www.google.com/search?si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_8v6LZ_hG-ydRfMYZHkmfqUYKUnwYvrZykVCE2wTgoNYPH6QArP1KKDNMr7bbSIC3e9bYPwrANzD1U3ejhrr04pRiSv74zbs-qVTMg0_DdXVqPPqMg%3D%3D&q=Cray+Networks,+Inc.+Reviews"
       target="_blank"
       rel="noreferrer"
-      aria-label="Cray Networks on Google"
+      aria-label="Cray Networks reviews on Google"
       className={cn("text-muted transition-colors hover:text-ink", className)}
     >
       <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="currentColor">
