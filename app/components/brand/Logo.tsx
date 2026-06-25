@@ -8,7 +8,7 @@ import { cn } from "../../lib/cn";
 export function Logo({ className, showWordmark = true }: { className?: string; showWordmark?: boolean }) {
   return (
     <span className={cn("inline-flex items-center gap-2 text-ink", className)}>
-      <svg viewBox="0 0 32 32" className="size-7 shrink-0" fill="none" aria-hidden="true">
+      <svg viewBox="0 0 32 32" className="logo-mark size-7 shrink-0" fill="none" aria-hidden="true">
         <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.45">
           <path d="M20 8 L11 9 L7 16 L11 23 L20 24" fill="none" />
         </g>

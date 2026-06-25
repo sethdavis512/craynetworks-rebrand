@@ -273,6 +273,11 @@
   top: 2.25rem;
 }
 
+/* logo reads as glowing holographic nodes in 2056 (and the primary node stays visible) */
+.era-2056 .logo-mark circle {
+  filter: drop-shadow(0 0 2px oklch(0.85 0.12 calc(250 + var(--iris, 0deg)) / 0.7));
+}
+
 /* OS-window modals: opaque frosted glass + glow so dialogs read over the morphing field
    (fixes the translucent, see-through modal in 2056) */
 .era-2056 [role="dialog"] {
