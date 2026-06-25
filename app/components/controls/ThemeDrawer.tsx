@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { Sheet } from "../ui/Sheet";
 import { Button } from "../ui/Button";
 import { useTheme } from "../../theme/ThemeProvider";
@@ -21,15 +21,17 @@ const rangeClass = "mt-2 w-full accent-primary";
 export function ThemeDrawer() {
   const [open, setOpen] = useState(false);
   const { state, update, reset } = useTheme();
+  const { pathname } = useLocation();
+  const inAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
 
   return (
     <>
       <div className="fixed bottom-5 right-5 z-30 flex items-center gap-2">
         <Link
-          to="/admin"
+          to={inAdmin ? "/" : "/admin"}
           className="rounded-full border border-border bg-surface px-4 py-2 font-sans text-sm font-medium text-ink shadow-lg transition-colors hover:bg-surface-2"
         >
-          Admin
+          {inAdmin ? "View site" : "Admin"}
         </Link>
         <button
           type="button"

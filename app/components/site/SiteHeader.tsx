@@ -35,9 +35,10 @@ export function SiteHeader() {
               <button
                 type="button"
                 aria-label="Join with a code"
-                className="grid size-9 place-items-center rounded-md text-muted transition-colors hover:bg-surface-2 hover:text-ink"
+                className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:bg-surface-2 hover:text-ink"
               >
                 <img src={joinIcon} alt="" className="size-5" />
+                ConnectWise
               </button>
             }
             title={

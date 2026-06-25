@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { Logo } from "../brand/Logo";
+import { SocialLinks } from "../social/SocialLinks";
 
 export function SiteFooter() {
   return (
@@ -10,6 +11,7 @@ export function SiteFooter() {
           <Link to="/services" className="hover:text-ink">Services</Link>
           <Link to="/#contact" className="hover:text-ink">Contact</Link>
         </nav>
+        <SocialLinks />
         <p className="font-sans text-sm text-muted">Central Texas IT, since 2003.</p>
       </div>
     </footer>
