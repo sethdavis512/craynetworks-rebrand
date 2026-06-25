@@ -21,6 +21,8 @@ export function loader({ request }: Route.LoaderArgs) {
 }
 
 function channelStyle(theme: ThemeState): CSSProperties {
+  // In 2056 the curated .era-2056 class skin governs; emit no inline token overrides.
+  if (theme.era === "2056") return {} as CSSProperties;
   return {
     "--primary-l": theme.accent.l,
     "--primary-c": theme.accent.c,
@@ -38,8 +40,11 @@ function channelStyle(theme: ThemeState): CSSProperties {
 export function Layout({ children }: { children: React.ReactNode }) {
   const data = useRouteLoaderData<typeof loader>("root");
   const theme = data?.theme ?? DEFAULT_THEME_STATE;
+  const htmlClass =
+    [theme.mode === "dark" ? "dark" : "", theme.era === "2056" ? "era-2056" : ""].filter(Boolean).join(" ") ||
+    undefined;
   return (
-    <html lang="en" className={theme.mode === "dark" ? "dark" : undefined} style={channelStyle(theme)}>
+    <html lang="en" className={htmlClass} style={channelStyle(theme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

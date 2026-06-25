@@ -7,7 +7,10 @@ import { SiteHeader } from "../components/site/SiteHeader";
 import { SiteFooter } from "../components/site/SiteFooter";
 import { ContactForm } from "../components/site/ContactForm";
 import { HeroGraph } from "../components/site/HeroGraph";
+import { Home2056 } from "../components/site/Home2056";
 import { useReducedMotion } from "../lib/useReducedMotion";
+import { useTheme } from "../theme/ThemeProvider";
+import { SERVICES, VALUES, AREAS, type Service } from "../data/marketing";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -19,23 +22,6 @@ export function meta({}: Route.MetaArgs) {
     },
   ];
 }
-
-type Service = { slug: string; name: string; body: string; featured?: boolean };
-
-const services: Service[] = [
-  { slug: "network-management", name: "IT & network management", body: "Proactive monitoring and maintenance, so problems get fixed before you ever notice them.", featured: true },
-  { slug: "computer-repair", name: "Computer repair", body: "Drop-off or on-site fixes for the desktop, laptop, or server that simply will not cooperate." },
-  { slug: "web-hosting", name: "Web hosting", body: "Fast, dependable hosting for your site and email, kept patched and backed up." },
-  { slug: "web-design", name: "Web design & development", body: "Sites that look right and work right, built by people down the road." },
-];
-
-const values = [
-  { name: "Warm", body: "We talk like neighbors, not a ticket queue. You get a person who remembers your setup." },
-  { name: "Clear", body: "Plain answers and honest timelines. No jargon deployed to sound smart." },
-  { name: "Trusted", body: "Two decades keeping Central Texas businesses online, one handshake at a time." },
-];
-
-const areas = ["Leander", "Cedar Park", "Austin", "Round Rock", "Pflugerville", "Georgetown", "Hill Country"];
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const group = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
@@ -66,8 +52,10 @@ function ServiceCard({ s }: { s: Service }) {
 
 export default function Home() {
   const reduced = useReducedMotion();
-  const trio = services.filter((s) => !s.featured);
-  const featured = services.find((s) => s.featured);
+  const { state } = useTheme();
+  if (state.era === "2056") return <Home2056 />;
+  const trio = SERVICES.filter((s) => !s.featured);
+  const featured = SERVICES.find((s) => s.featured);
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -163,7 +151,7 @@ export default function Home() {
         <section className="border-t border-border py-20">
           <h2 className="text-3xl font-semibold tracking-tight text-ink">Why Cray</h2>
           <div className="mt-8 grid gap-8 sm:grid-cols-3">
-            {values.map((v) => (
+            {VALUES.map((v) => (
               <div key={v.name}>
                 <h3 className="font-sans text-lg font-semibold text-ink">{v.name}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{v.body}</p>
@@ -177,7 +165,7 @@ export default function Home() {
           <h2 className="text-2xl font-semibold tracking-tight text-ink">Where we work</h2>
           <p className="mt-2 leading-relaxed text-muted">On-site across Central Texas and the Hill Country.</p>
           <div className="mt-5 flex flex-wrap gap-2">
-            {areas.map((a) => (
+            {AREAS.map((a) => (
               <Badge key={a}>{a}</Badge>
             ))}
           </div>

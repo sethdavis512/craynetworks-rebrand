@@ -10,6 +10,7 @@ describe("theme-state", () => {
       density: 0.3,
       type: { family: "sans" as const, scale: 1.1, weight: 500, opsz: 24, tracking: 0.02 },
       hero: { count: 64, speed: 0.4, spread: 0.7 },
+      era: "2056" as const,
     };
     expect(deserialize(serialize(state))).toEqual(state);
   });

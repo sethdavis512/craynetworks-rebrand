@@ -7,6 +7,7 @@
         "@base-ui/react": "^1.6.0",
         "@fontsource-variable/hanken-grotesk": "^5.2.8",
         "@fontsource-variable/literata": "^5.2.8",
+        "@fontsource-variable/space-grotesk": "^5.2.10",
         "@react-router/node": "8.0.0",
         "@react-router/serve": "8.0.0",
         "class-variance-authority": "^0.7.1",
@@ -114,6 +115,8 @@
     "@fontsource-variable/hanken-grotesk": ["@fontsource-variable/hanken-grotesk@5.2.8", "", {}, "sha512-K7hu09ZKReBc7EifRLeM4K94NZBrxFEg0nGcISmVwlFQOJo4EmYkLXTWEwr5JcNW4z2hr5zy8vLS2sxC8JDmrQ=="],
 
     "@fontsource-variable/literata": ["@fontsource-variable/literata@5.2.8", "", {}, "sha512-LhxHyo0lDNu2w8FJ7OfTZl6kT8pDYhXiCmWxFAqpUmOqHz1z3OWOaaWBDVOCDOE8b+GWJQX9HYHZ2CERQjjlWA=="],
+
+    "@fontsource-variable/space-grotesk": ["@fontsource-variable/space-grotesk@5.2.10", "", {}, "sha512-yJQO/o35/hAP3CFnpdFTwQku2yzJOae2HIpBmqkOVoxhhXJaQP3g+b6Jrz7u+eI7A5ZdCIf88uMWpBJdFiGr5w=="],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.13", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA=="],
 

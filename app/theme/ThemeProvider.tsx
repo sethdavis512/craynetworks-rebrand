@@ -33,17 +33,26 @@ const OVERRIDE_PROPS = [
 /** Apply the override layer as inline CSS vars on <html>. Consumers read vars, so they never re-render. */
 function applyToDom(state: ThemeState) {
   const root = document.documentElement;
-  root.style.setProperty("--primary-l", String(state.accent.l));
-  root.style.setProperty("--primary-c", String(state.accent.c));
-  root.style.setProperty("--primary-h", String(state.accent.h));
-  root.style.setProperty("--radius-base", `${state.radius}rem`);
-  root.style.setProperty("--spacing", `${state.density}rem`);
-  // typography (cascades to all rem-sized text + inherited body type)
-  root.style.fontSize = `${Math.round(state.type.scale * 100)}%`;
-  root.style.setProperty("--font-body", state.type.family === "serif" ? FONT_STACKS.serif : FONT_STACKS.sans);
-  root.style.setProperty("--body-weight", String(state.type.weight));
-  root.style.setProperty("--body-opsz", String(state.type.opsz));
-  root.style.setProperty("--tracking", `${state.type.tracking}em`);
+  const is2056 = state.era === "2056";
+  root.classList.toggle("era-2056", is2056);
+  if (is2056) {
+    // The curated .era-2056 skin governs; clear the present-day inline token overrides so the
+    // class block wins (inline styles would otherwise outrank it).
+    for (const prop of OVERRIDE_PROPS) root.style.removeProperty(prop);
+    root.style.removeProperty("font-size");
+  } else {
+    root.style.setProperty("--primary-l", String(state.accent.l));
+    root.style.setProperty("--primary-c", String(state.accent.c));
+    root.style.setProperty("--primary-h", String(state.accent.h));
+    root.style.setProperty("--radius-base", `${state.radius}rem`);
+    root.style.setProperty("--spacing", `${state.density}rem`);
+    // typography (cascades to all rem-sized text + inherited body type)
+    root.style.fontSize = `${Math.round(state.type.scale * 100)}%`;
+    root.style.setProperty("--font-body", state.type.family === "serif" ? FONT_STACKS.serif : FONT_STACKS.sans);
+    root.style.setProperty("--body-weight", String(state.type.weight));
+    root.style.setProperty("--body-opsz", String(state.type.opsz));
+    root.style.setProperty("--tracking", `${state.type.tracking}em`);
+  }
   root.classList.toggle("dark", state.mode === "dark");
 }
 
@@ -53,6 +62,7 @@ function clearDom() {
   for (const prop of OVERRIDE_PROPS) root.style.removeProperty(prop);
   root.style.removeProperty("font-size");
   root.classList.remove("dark");
+  root.classList.remove("era-2056");
 }
 
 function persist(state: ThemeState) {

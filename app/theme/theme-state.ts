@@ -43,6 +43,7 @@ export const ThemeStateSchema = z.object({
       spread: z.coerce.number().min(0).max(1).default(0.5),
     })
     .default({ count: 52, speed: 0.5, spread: 0.5 }),
+  era: z.enum(["standard", "2056"]).default("standard"),
 });
 
 export type ThemeState = z.infer<typeof ThemeStateSchema>;
@@ -66,6 +67,7 @@ export function serialize(state: ThemeState): string {
     hc: String(state.hero.count),
     hs: String(state.hero.speed),
     hp: String(state.hero.spread),
+    e: state.era,
   }).toString();
 }
 
@@ -90,6 +92,7 @@ export function deserialize(input: string | null | undefined): ThemeState {
       speed: p.get("hs") ?? undefined,
       spread: p.get("hp") ?? undefined,
     },
+    era: p.get("e") ?? undefined,
   };
   const result = ThemeStateSchema.safeParse(candidate);
   return result.success ? result.data : DEFAULT_THEME_STATE;

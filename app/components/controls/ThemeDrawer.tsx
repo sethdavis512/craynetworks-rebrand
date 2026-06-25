@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router";
 import { Sheet } from "../ui/Sheet";
 import { Button } from "../ui/Button";
 import { Tabs } from "../ui/Tabs";
+import { EraToggle } from "./EraToggle";
 import { useTheme } from "../../theme/ThemeProvider";
 
 function Field({
@@ -136,6 +137,7 @@ export function ThemeDrawer() {
         >
           Theme
         </button>
+        <EraToggle />
       </div>
 
       <Sheet
