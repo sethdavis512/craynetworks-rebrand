@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { primitives, oklchString } from "../theme/tokens";
+import { Rationale } from "../components/site/Rationale";
 
 export function meta() {
   return [
@@ -148,6 +149,14 @@ export default function Studio() {
         </div>
       </section>
 
+      <Rationale title="Why Hanken Grotesk and Literata" className="mt-8">
+        Hanken Grotesk gives headings a warm, geometric-humanist voice; Literata is a variable serif
+        built for reading, with a real optical-size axis. Pairing a sans display face with a serif
+        text face creates contrast on a genuine axis, not two near-identical sans, and the serif
+        signals the human, trustworthy tone the brand is after. Both are self-hosted and variable,
+        so the controls above move real axes.
+      </Rationale>
+
       {/* Token ramp (read from tokens.ts) */}
       <section className="mt-16 border-t border-border pt-10">
         <h2 className="text-2xl font-semibold tracking-tight text-ink">Tokens</h2>
@@ -171,6 +180,13 @@ export default function Studio() {
             );
           })}
         </div>
+
+        <Rationale title="Why refined blue, navy, and OKLCH" className="mt-6">
+          Cray already owned a cyan-leaning blue, a deep navy, and white; the rebrand systematizes
+          that identity rather than inventing a new one. Authoring it in OKLCH instead of hex gives
+          perceptually even ramps and keeps light and dark in lockstep, and the lone amber accent,
+          already present on the old site, adds warmth without introducing a second brand color.
+        </Rationale>
       </section>
     </div>
   );
