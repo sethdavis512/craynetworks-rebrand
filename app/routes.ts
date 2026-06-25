@@ -15,6 +15,5 @@ export default [
     ]),
     route("colophon", "routes/colophon.tsx"),
     route("studio", "routes/studio.tsx"),
-    route("before-after", "routes/before-after.tsx"),
   ]),
 ] satisfies RouteConfig;
