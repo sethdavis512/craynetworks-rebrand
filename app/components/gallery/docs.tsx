@@ -4,6 +4,13 @@ import { Card } from "../ui/Card";
 import { Badge } from "../ui/Badge";
 import { Input } from "../ui/Input";
 import { Switch } from "../ui/Switch";
+import { Checkbox } from "../ui/Checkbox";
+import { Tabs } from "../ui/Tabs";
+import { Dialog } from "../ui/Dialog";
+import { Tooltip } from "../ui/Tooltip";
+import { Avatar } from "../ui/Avatar";
+import { Separator } from "../ui/Separator";
+import { Banner } from "../ui/Banner";
 import type { ApiRow } from "./ApiTable";
 
 export type DocSection = { id: string; title: string; preview: ReactNode; code: string };
@@ -168,6 +175,204 @@ export const docs: Record<string, DocEntry> = {
     ],
     accessibility: [
       "A plain surface container with no implicit semantics; add headings and landmarks as the content requires.",
+    ],
+  },
+
+  checkbox: {
+    importLine: `import { Checkbox } from "~/components/ui/Checkbox";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <>
+            <Checkbox defaultChecked aria-label="Subscribed" />
+            <Checkbox aria-label="Not subscribed" />
+          </>
+        ),
+        code: `<Checkbox defaultChecked />\n<Checkbox />`,
+      },
+    ],
+    api: [
+      { prop: "checked", type: "boolean", description: "Controlled checked state." },
+      { prop: "defaultChecked", type: "boolean", default: "false", description: "Uncontrolled initial state." },
+      { prop: "onCheckedChange", type: "(checked: boolean) => void", description: "Called when the state changes." },
+      { prop: "disabled", type: "boolean", default: "false", description: "Disable the checkbox." },
+    ],
+    accessibility: [
+      "Built on the Base UI Checkbox primitive with role=checkbox and full keyboard support.",
+      "State is exposed via data-checked / data-disabled for styling.",
+    ],
+  },
+
+  tabs: {
+    importLine: `import { Tabs } from "~/components/ui/Tabs";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Tabs
+            className="max-w-sm"
+            items={[
+              { value: "overview", label: "Overview", content: "Proactive monitoring keeps systems healthy." },
+              { value: "pricing", label: "Pricing", content: "Flat monthly plans, no surprises." },
+              { value: "support", label: "Support", content: "Local techs, same-day response." },
+            ]}
+          />
+        ),
+        code: `<Tabs\n  items={[\n    { value: "overview", label: "Overview", content: <p>...</p> },\n    { value: "pricing", label: "Pricing", content: <p>...</p> },\n  ]}\n/>`,
+      },
+    ],
+    api: [
+      { prop: "items", type: "{ value, label, content }[]", description: "The tabs to render." },
+      { prop: "defaultValue", type: "string", default: "items[0].value", description: "Initially selected tab." },
+    ],
+    accessibility: [
+      "Built on the Base UI Tabs primitive: arrow-key navigation and correct tab/panel ARIA wiring.",
+      "The selected tab is exposed via data-selected for styling.",
+    ],
+  },
+
+  dialog: {
+    importLine: `import { Dialog } from "~/components/ui/Dialog";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Dialog
+            trigger={<Button>Create a worker</Button>}
+            title="Create a worker"
+            description="Spin up a new edge worker for this account."
+          >
+            <p className="text-sm leading-relaxed text-muted">
+              Workers deploy globally in seconds. Name it and confirm to continue.
+            </p>
+          </Dialog>
+        ),
+        code: `<Dialog\n  trigger={<Button>Create a worker</Button>}\n  title="Create a worker"\n  description="Spin up a new edge worker."\n>\n  <p>...</p>\n</Dialog>`,
+      },
+    ],
+    api: [
+      { prop: "trigger", type: "ReactElement", description: "Element that opens the dialog (props are merged in)." },
+      { prop: "title", type: "ReactNode", description: "Dialog title (announced to screen readers)." },
+      { prop: "description", type: "ReactNode", description: "Optional supporting text." },
+      { prop: "children", type: "ReactNode", description: "Dialog body content." },
+    ],
+    accessibility: [
+      "Built on the Base UI Dialog primitive: focus is trapped, the backdrop is inert, and Escape closes.",
+      "Title and description are wired to aria-labelledby / aria-describedby automatically.",
+    ],
+  },
+
+  tooltip: {
+    importLine: `import { Tooltip } from "~/components/ui/Tooltip";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Tooltip content="Add a worker">
+            <Button variant="outline" size="sm">
+              Hover me
+            </Button>
+          </Tooltip>
+        ),
+        code: `<Tooltip content="Add a worker">\n  <Button variant="outline" size="sm">Hover me</Button>\n</Tooltip>`,
+      },
+    ],
+    api: [
+      { prop: "children", type: "ReactElement", description: "The trigger element (hover/focus target)." },
+      { prop: "content", type: "ReactNode", description: "The tooltip content." },
+    ],
+    accessibility: [
+      "Built on the Base UI Tooltip primitive: shows on hover and keyboard focus, hides on Escape.",
+      "Pair with a trigger that has an accessible label; tooltips supplement, not replace, labels.",
+    ],
+  },
+
+  avatar: {
+    importLine: `import { Avatar } from "~/components/ui/Avatar";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <>
+            <Avatar fallback="CN" />
+            <Avatar fallback="SD" />
+          </>
+        ),
+        code: `<Avatar fallback="CN" />\n<Avatar src="/seth.jpg" alt="Seth" fallback="SD" />`,
+      },
+    ],
+    api: [
+      { prop: "src", type: "string", description: "Image URL; falls back to initials if it fails to load." },
+      { prop: "alt", type: "string", description: "Alt text for the image." },
+      { prop: "fallback", type: "string", description: "Initials shown when there is no image." },
+    ],
+    accessibility: [
+      "Built on the Base UI Avatar primitive; the fallback renders if the image is missing or slow.",
+      "Provide meaningful alt text when the avatar conveys identity.",
+    ],
+  },
+
+  separator: {
+    importLine: `import { Separator } from "~/components/ui/Separator";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <div className="flex items-center gap-3 font-sans text-sm text-muted">
+            <span>Home</span>
+            <Separator orientation="vertical" className="h-4" />
+            <span>Docs</span>
+            <Separator orientation="vertical" className="h-4" />
+            <span>Pricing</span>
+          </div>
+        ),
+        code: `<Separator />\n<Separator orientation="vertical" className="h-4" />`,
+      },
+    ],
+    api: [
+      { prop: "orientation", type: `"horizontal" | "vertical"`, default: `"horizontal"`, description: "Direction of the divider." },
+    ],
+    accessibility: [
+      "Built on the Base UI Separator primitive with role=separator and the correct aria-orientation.",
+    ],
+  },
+
+  banner: {
+    importLine: `import { Banner } from "~/components/ui/Banner";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: <Banner className="max-w-sm">Scheduled maintenance this Sunday at 2am CT.</Banner>,
+        code: `<Banner>Scheduled maintenance this Sunday at 2am CT.</Banner>`,
+      },
+      {
+        id: "variants",
+        title: "Tones",
+        preview: (
+          <div className="flex w-full max-w-sm flex-col gap-2">
+            <Banner tone="info">A new dashboard is available.</Banner>
+            <Banner tone="success">Backup completed successfully.</Banner>
+            <Banner tone="warning">Your certificate expires in 7 days.</Banner>
+            <Banner tone="danger">We detected an outage in your region.</Banner>
+          </div>
+        ),
+        code: `<Banner tone="info">...</Banner>\n<Banner tone="success">...</Banner>\n<Banner tone="warning">...</Banner>\n<Banner tone="danger">...</Banner>`,
+      },
+    ],
+    api: [
+      { prop: "tone", type: `"info" | "success" | "warning" | "danger"`, default: `"info"`, description: "Semantic intent of the message." },
+    ],
+    accessibility: [
+      "Renders with role=status so assistive tech announces the message politely.",
+      "Conveys intent with text and border, not color alone.",
     ],
   },
 };

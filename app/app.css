@@ -36,6 +36,9 @@
   --warning: oklch(0.72 0.13 75);
   --danger: oklch(0.55 0.17 25);
 
+  /* overlay scrim (dark in both themes) */
+  --scrim: oklch(0.15 0.02 245 / 0.5);
+
   /* foundation: spacing/radius flow through tokens so density/radius cascade */
   --radius-base: 0.625rem;
   --font-heading: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
@@ -62,6 +65,7 @@
   --success: oklch(0.7 0.13 150);
   --warning: oklch(0.8 0.13 75);
   --danger: oklch(0.68 0.17 25);
+  --scrim: oklch(0.08 0.02 245 / 0.65);
 }
 
 @theme inline {
@@ -82,6 +86,7 @@
   --color-info: var(--info);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
+  --color-scrim: var(--scrim);
 
   --font-sans: var(--font-heading);
   --font-serif: var(--font-body);
