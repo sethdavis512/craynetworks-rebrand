@@ -49,3 +49,15 @@ renders static). Replaces the token-preview scratch route.
 **Why:** This is the surface a reviewer lands on first; it has to read as a believable, better Cray
 and prove the components hold up in a real composition.
 **Demonstrates:** Brand identity, restraint, typography, and the design system dogfooded end to end.
+
+## Stage 08 - Studio (type lab + token system)   (tag: stage-08-studio)
+
+**Built:** `/admin/studio`, the typography and token showcase. A live type lab with real
+variable-font controls (family, weight, optical size, modular scale ratio, line height, tracking,
+measure) driving a specimen and a modular scale ramp via `font-variation-settings`; plus an OKLCH
+token ramp whose swatches read canonical values straight from `tokens.ts` (now extended to model
+the status colors), so the docs cannot drift from what ships.
+**Why:** Typography and token architecture are the project's loudest pillars; they needed a surface
+that flexes the craft, not just a marketing page that consumes it.
+**Demonstrates:** Deep typographic control (genuine optical-size axis), and the token system made
+legible and inspectable.

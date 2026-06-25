@@ -11,6 +11,11 @@ const sections = [
     body: "The dogfooded Base UI and Tailwind library: live previews, variants, and API docs that re-theme with the Drawer.",
   },
   {
+    to: "/admin/studio",
+    title: "Studio",
+    body: "The live typography lab and the OKLCH token system: the type and color craft, made interactive.",
+  },
+  {
     to: "/admin/colophon",
     title: "Colophon",
     body: "How this rebrand was built: the decisions, the system, and what each choice is meant to demonstrate.",

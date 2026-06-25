@@ -9,5 +9,6 @@ export default [
       route(":slug", "routes/components.detail.tsx"),
     ]),
     route("colophon", "routes/colophon.tsx"),
+    route("studio", "routes/studio.tsx"),
   ]),
 ] satisfies RouteConfig;

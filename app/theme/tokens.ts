@@ -29,6 +29,9 @@ export const primitives: Record<ThemeName, Record<string, Oklch>> = {
     ink: { l: 0.25, c: 0.02, h: 245 }, // navy-charcoal body text
     muted: { l: 0.52, c: 0.02, h: 245 },
     border: { l: 0.91, c: 0.008, h: 240 },
+    success: { l: 0.55, c: 0.12, h: 150 },
+    warning: { l: 0.72, c: 0.13, h: 75 },
+    danger: { l: 0.55, c: 0.17, h: 25 },
   },
   dark: {
     primary: { l: 0.72, c: 0.11, h: 232 },
@@ -41,6 +44,9 @@ export const primitives: Record<ThemeName, Record<string, Oklch>> = {
     ink: { l: 0.95, c: 0.006, h: 240 },
     muted: { l: 0.7, c: 0.014, h: 240 },
     border: { l: 0.32, c: 0.016, h: 245 },
+    success: { l: 0.7, c: 0.13, h: 150 },
+    warning: { l: 0.8, c: 0.13, h: 75 },
+    danger: { l: 0.68, c: 0.17, h: 25 },
   },
 };
 

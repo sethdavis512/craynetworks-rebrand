@@ -3,6 +3,7 @@ import { cn } from "../lib/cn";
 
 const adminNav = [
   { to: "/admin/components", label: "Components" },
+  { to: "/admin/studio", label: "Studio" },
   { to: "/admin/colophon", label: "Colophon" },
 ];
 
