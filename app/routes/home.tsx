@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { Route } from "./+types/home";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
@@ -18,9 +19,17 @@ export default function Home() {
     <main className="mx-auto max-w-3xl px-6 py-16">
       <div className="flex items-center justify-between">
         <span className="font-sans text-sm font-semibold text-primary">cray networks</span>
-        <Button variant="outline" size="sm" onClick={toggleTheme}>
-          Toggle theme
-        </Button>
+        <nav className="flex items-center gap-2">
+          <Link
+            to="/components"
+            className="rounded-md px-3 py-1.5 font-sans text-sm font-medium text-muted transition-colors hover:text-ink"
+          >
+            Components
+          </Link>
+          <Button variant="outline" size="sm" onClick={toggleTheme}>
+            Toggle theme
+          </Button>
+        </nav>
       </div>
 
       <h1 className="mt-10 text-balance text-5xl font-semibold tracking-tight text-ink">
