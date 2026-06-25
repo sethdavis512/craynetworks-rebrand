@@ -1,22 +1,24 @@
-FROM node:24-alpine AS development-dependencies-env
-COPY . /app
-WORKDIR /app
-RUN npm ci
+# Build with Bun (the project's package manager); serve on Node.
+# react-router-serve is known to crash under Bun, so only install/build use Bun
+# while the runtime image is Node.
 
-FROM node:24-alpine AS production-dependencies-env
-COPY ./package.json package-lock.json /app/
+FROM oven/bun:1 AS build
 WORKDIR /app
-RUN npm ci --omit=dev
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
+COPY . .
+RUN bun run build
 
-FROM node:24-alpine AS build-env
-COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
+FROM oven/bun:1 AS prod-deps
 WORKDIR /app
-RUN npm run build
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --production
 
 FROM node:24-alpine
-COPY ./package.json package-lock.json /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/build /app/build
 WORKDIR /app
+ENV NODE_ENV=production
+COPY package.json ./
+COPY --from=prod-deps /app/node_modules ./node_modules
+COPY --from=build /app/build ./build
+EXPOSE 3000
 CMD ["npm", "run", "start"]
