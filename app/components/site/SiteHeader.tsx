@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTheme } from "../../theme/ThemeProvider";
 import { Logo } from "../brand/Logo";
 import { buttonVariants } from "../ui/Button";
 import { Dialog } from "../ui/Dialog";
@@ -23,10 +24,12 @@ function JoinForm() {
 }
 
 export function SiteHeader() {
+  const { state } = useTheme();
+  const vt = state.era === "2056";
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-surface">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link to="/" aria-label="Cray Networks home">
+        <Link to="/" aria-label="Cray Networks home" viewTransition={vt}>
           <Logo />
         </Link>
         <nav className="flex items-center gap-1 sm:gap-3">
@@ -64,17 +67,19 @@ export function SiteHeader() {
           </Dialog>
           <Link
             to="/services"
+            viewTransition={vt}
             className="hidden rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:text-ink sm:inline-block"
           >
             Services
           </Link>
           <Link
             to="/quote"
+            viewTransition={vt}
             className="hidden rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:text-ink sm:inline-block"
           >
             Estimate
           </Link>
-          <Link to="/#contact" className={buttonVariants({ size: "sm" })}>
+          <Link to="/#contact" viewTransition={vt} className={buttonVariants({ size: "sm" })}>
             Request a quote
           </Link>
         </nav>

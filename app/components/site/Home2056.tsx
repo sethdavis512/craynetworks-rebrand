@@ -6,7 +6,7 @@ import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { ContactForm } from "./ContactForm";
 import { HeroGraph } from "./HeroGraph";
-import { HolographicBackdrop } from "./HolographicBackdrop";
+import { DecodeText } from "../era/DecodeText";
 import { useReducedMotion } from "../../lib/useReducedMotion";
 import { SERVICES, VALUES, AREAS } from "../../data/marketing";
 
@@ -43,7 +43,6 @@ export function Home2056() {
 
   return (
     <div className="relative flex min-h-dvh flex-col">
-      <HolographicBackdrop />
       <SiteHeader />
 
       <main className="flex-1">
@@ -60,7 +59,8 @@ export function Home2056() {
               Cray // Networks &middot; 2003 &rarr; 2056
             </p>
             <h1 className="mt-5 max-w-4xl text-balance font-sans font-semibold leading-[1.02] tracking-tight text-ink text-[clamp(2.75rem,7vw,5.5rem)]">
-              Reliable IT, handled <span className="text-primary">like a neighbor</span> would.
+              <DecodeText text="Reliable IT, handled " />
+              <span className="text-primary">like a neighbor</span> would.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
               Cray Networks keeps small and mid-sized businesses across the Hill Country running, from the

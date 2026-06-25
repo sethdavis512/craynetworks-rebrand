@@ -15,6 +15,7 @@ import { readTheme } from "./theme/theme-cookie.server";
 import { DEFAULT_THEME_STATE, FONT_STACKS, type ThemeState } from "./theme/theme-state";
 import { ThemeProvider } from "./theme/ThemeProvider";
 import { ThemeDrawer } from "./components/controls/ThemeDrawer";
+import { Era2056Layer } from "./components/era/Era2056Layer";
 
 export function loader({ request }: Route.LoaderArgs) {
   return { theme: readTheme(request) };
@@ -63,6 +64,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App({ loaderData }: Route.ComponentProps) {
   return (
     <ThemeProvider initialState={loaderData.theme}>
+      <Era2056Layer />
       <Outlet />
       <ThemeDrawer />
     </ThemeProvider>

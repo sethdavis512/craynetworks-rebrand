@@ -14,13 +14,27 @@ function ensureFontLoaded() {
   return fontPromise;
 }
 
+const BOOT_2056 = [
+  "CRAY//OS bootloader v20.56",
+  "mounting reality matrix .......... OK",
+  "calibrating holographic field .... OK",
+  "syncing Central Texas grid ....... OK",
+  "decrypting brand identity ........ OK",
+  "WELCOME TO 2056",
+];
+const BOOT_2026 = [
+  "saving session state ............. OK",
+  "collapsing holographic field ..... OK",
+  "returning to the present",
+];
+
 export function EraToggle() {
   const { state, update } = useTheme();
   const reduced = useReducedMotion();
   const is2056 = state.era === "2056";
 
   const [mounted, setMounted] = useState(false);
-  const [shiftLabel, setShiftLabel] = useState<string | null>(null);
+  const [target, setTarget] = useState<"2056" | "2026" | null>(null);
   const timers = useRef<number[]>([]);
 
   useEffect(() => setMounted(true), []);
@@ -30,14 +44,14 @@ export function EraToggle() {
   useEffect(() => () => timers.current.forEach((t) => clearTimeout(t)), []);
 
   const flip = () => {
-    if (shiftLabel) return;
+    if (target) return;
     const goingTo = is2056 ? "standard" : "2056";
     if (goingTo === "2056") ensureFontLoaded();
-    setShiftLabel(is2056 ? "2026" : "2056");
-    const total = reduced ? 1100 : 2000;
-    // Flip the world under the overlay (no flash), then lift the overlay.
-    timers.current.push(window.setTimeout(() => update({ era: goingTo }), Math.round(total * 0.55)));
-    timers.current.push(window.setTimeout(() => setShiftLabel(null), total));
+    setTarget(is2056 ? "2026" : "2056");
+    const total = reduced ? 1200 : goingTo === "2056" ? 2700 : 1700;
+    // Flip the world under the boot overlay (no flash), then lift it.
+    timers.current.push(window.setTimeout(() => update({ era: goingTo }), Math.round(total * 0.5)));
+    timers.current.push(window.setTimeout(() => setTarget(null), total));
   };
 
   return (
@@ -53,9 +67,7 @@ export function EraToggle() {
 
       {mounted
         ? createPortal(
-            <AnimatePresence>
-              {shiftLabel ? <EraOverlay target={shiftLabel} reduced={reduced} /> : null}
-            </AnimatePresence>,
+            <AnimatePresence>{target ? <BootOverlay target={target} reduced={reduced} /> : null}</AnimatePresence>,
             document.body,
           )
         : null}
@@ -63,34 +75,55 @@ export function EraToggle() {
   );
 }
 
-function EraOverlay({ target, reduced }: { target: string; reduced: boolean }) {
+function BootOverlay({ target, reduced }: { target: "2056" | "2026"; reduced: boolean }) {
+  const lines = target === "2056" ? BOOT_2056 : BOOT_2026;
+  const [shown, setShown] = useState(reduced ? lines.length : 0);
+
+  useEffect(() => {
+    if (reduced) return;
+    const id = setInterval(() => setShown((s) => Math.min(s + 1, lines.length)), target === "2056" ? 330 : 300);
+    return () => clearInterval(id);
+  }, [lines.length, reduced, target]);
+
+  const sweep = (target === "2056" ? 2.7 : 1.7) * 0.85;
   return (
     <motion.div
       aria-hidden="true"
-      className="fixed inset-0 z-[60] grid place-items-center overflow-hidden"
+      className="fixed inset-0 z-[70] grid place-items-center overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: reduced ? 0.2 : 0.45, ease: EASE }}
-      style={{
-        background: "radial-gradient(120% 120% at 50% 0%, oklch(0.7 0.18 285 / 0.92), oklch(0.5 0.2 250 / 0.97))",
-      }}
+      transition={{ duration: reduced ? 0.2 : 0.4, ease: EASE }}
+      style={{ background: "radial-gradient(130% 130% at 50% 0%, oklch(0.16 0.06 275 / 0.97), oklch(0.1 0.05 265 / 0.99))" }}
     >
       {!reduced ? (
         <motion.div
-          className="absolute inset-x-0 top-0 h-1 origin-left"
-          style={{ background: "oklch(0.96 0.05 250)" }}
+          className="absolute inset-x-0 top-0 h-0.5 origin-left"
+          style={{ background: "oklch(0.85 0.16 250)" }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1.5, ease: "linear" }}
+          transition={{ duration: sweep, ease: "linear" }}
         />
       ) : null}
-      <div className="px-6 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.4em] text-white/80">Reality shift in progress</p>
-        <p className="mt-3 font-sans text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-          Recalibrating &rarr; {target}
-        </p>
-        <p className="mt-4 font-mono text-sm text-white/70">Hold tight. The interface is rewriting itself.</p>
+      <div className="w-[min(34rem,calc(100vw-2.5rem))] px-2 font-mono text-sm">
+        {lines.slice(0, shown).map((l, i) => {
+          const last = i === lines.length - 1;
+          return (
+            <p
+              key={l}
+              className={last ? "mt-3 text-lg font-semibold sm:text-xl" : "leading-relaxed"}
+              style={{ color: last ? "oklch(0.98 0.02 250)" : "oklch(0.82 0.12 205)" }}
+            >
+              {last ? "" : "> "}
+              {l}
+            </p>
+          );
+        })}
+        {!reduced && shown < lines.length ? (
+          <span className="inline-block animate-pulse" style={{ color: "oklch(0.98 0.02 250)" }}>
+            _
+          </span>
+        ) : null}
       </div>
     </motion.div>
   );
