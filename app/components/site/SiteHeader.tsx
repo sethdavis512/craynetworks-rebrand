@@ -55,6 +55,12 @@ export function SiteHeader() {
           >
             Services
           </Link>
+          <Link
+            to="/quote"
+            className="hidden rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:text-ink sm:inline-block"
+          >
+            Estimate
+          </Link>
           <Link to="/#contact" className={buttonVariants({ size: "sm" })}>
             Request a quote
           </Link>

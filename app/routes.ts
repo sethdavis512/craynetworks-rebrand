@@ -6,6 +6,7 @@ export default [
     index("routes/services.index.tsx"),
     route(":slug", "routes/services.detail.tsx"),
   ]),
+  route("quote", "routes/quote.tsx"),
   route("admin", "routes/admin.tsx", [
     index("routes/admin.index.tsx"),
     route("components", "routes/components.tsx", [
