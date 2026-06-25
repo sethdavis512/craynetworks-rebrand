@@ -4,7 +4,7 @@ import { cn } from "../lib/cn";
 const adminNav = [
   { to: "/admin/components", label: "Components" },
   { to: "/admin/studio", label: "Studio" },
-  { to: "/admin/colophon", label: "Colophon" },
+  { to: "/admin/behind-the-rebrand", label: "Behind the rebrand" },
 ];
 
 /** Admin shell: a persistent nav so every admin route links to the others. */

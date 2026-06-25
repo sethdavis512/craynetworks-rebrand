@@ -13,7 +13,7 @@ export default [
       index("routes/components.index.tsx"),
       route(":slug", "routes/components.detail.tsx"),
     ]),
-    route("colophon", "routes/colophon.tsx"),
+    route("behind-the-rebrand", "routes/colophon.tsx"),
     route("studio", "routes/studio.tsx"),
   ]),
 ] satisfies RouteConfig;

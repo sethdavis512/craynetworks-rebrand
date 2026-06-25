@@ -9,7 +9,7 @@ import newCraySrc from "../images/new-cray.png";
 
 export function meta() {
   return [
-    { title: "Colophon — Cray Networks" },
+    { title: "Behind the rebrand — Cray Networks" },
     { name: "description", content: "How the Cray Networks rebrand was designed and built." },
   ];
 }
@@ -96,7 +96,7 @@ export default function Colophon() {
     <div className="mx-auto max-w-5xl px-6 py-20">
       {/* Opening */}
       <section>
-        <p className="font-sans text-sm font-medium text-primary-strong">Colophon</p>
+        <p className="font-sans text-sm font-medium text-primary-strong">Behind the rebrand</p>
         <h1 className="mt-3 max-w-3xl text-balance text-5xl font-semibold leading-[1.05] tracking-[-0.03em] text-ink sm:text-6xl">
           Same business. Finally <span className="font-serif font-normal italic text-primary">systematized</span>.
         </h1>

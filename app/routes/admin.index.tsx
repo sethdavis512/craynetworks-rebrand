@@ -16,8 +16,8 @@ const sections = [
     body: "The live typography lab and the OKLCH token system: the type and color craft, made interactive.",
   },
   {
-    to: "/admin/colophon",
-    title: "Colophon",
+    to: "/admin/behind-the-rebrand",
+    title: "Behind the rebrand",
     body: "The transformation, celebrated: the before/after reveal, the decisions and why, the live system, and how it was built, in one scroll.",
   },
 ];
