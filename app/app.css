@@ -158,43 +158,45 @@
    rides an animated --iris hue, so the whole palette morphs.
    ============================================================ */
 
+/* unitless number (not <angle>): it is added to a bare hue in oklch(... calc(H + var(--iris))),
+   and CSS forbids number + angle, which made the dependent tokens invalid. */
 @property --iris {
-  syntax: "<angle>";
+  syntax: "<number>";
   inherits: true;
-  initial-value: 0deg;
+  initial-value: 0;
 }
 
 @keyframes era-iris {
   from {
-    --iris: -22deg;
+    --iris: -22;
   }
   to {
-    --iris: 26deg;
+    --iris: 26;
   }
 }
 
 .era-2056 {
   color-scheme: light;
-  --iris: 0deg;
+  --iris: 0;
   animation: era-iris 16s ease-in-out infinite alternate;
 
   /* iridescent brand: hue rides --iris. Chroma kept in sRGB gamut across the morph;
      contrast pairs AA-verified (dark text on the bright primary fill). */
-  --primary: oklch(0.62 0.12 calc(252 + var(--iris, 0deg)));
-  --primary-hover: oklch(0.56 0.12 calc(252 + var(--iris, 0deg)));
-  --primary-strong: oklch(0.46 0.11 calc(252 + var(--iris, 0deg)));
-  --sky: oklch(0.7 0.12 calc(220 + var(--iris, 0deg)));
-  --amber: oklch(0.74 0.14 calc(350 + var(--iris, 0deg))); /* magenta pop */
-  --navy: oklch(0.5 0.11 calc(268 + var(--iris, 0deg))); /* hero band -> luminous violet */
+  --primary: oklch(0.62 0.12 calc(252 + var(--iris, 0)));
+  --primary-hover: oklch(0.56 0.12 calc(252 + var(--iris, 0)));
+  --primary-strong: oklch(0.46 0.11 calc(252 + var(--iris, 0)));
+  --sky: oklch(0.7 0.12 calc(220 + var(--iris, 0)));
+  --amber: oklch(0.74 0.14 calc(350 + var(--iris, 0))); /* magenta pop */
+  --navy: oklch(0.5 0.11 calc(268 + var(--iris, 0))); /* hero band -> luminous violet */
   --on-navy: oklch(0.98 0.006 250);
   --on-primary: oklch(0.16 0.03 255); /* dark text on the bright primary fill */
 
   /* luminous translucent glass surfaces (the backdrop shows through) */
-  --surface: oklch(0.98 0.02 calc(255 + var(--iris, 0deg)) / 0.82);
-  --surface-2: oklch(0.95 0.03 calc(255 + var(--iris, 0deg)) / 0.66);
+  --surface: oklch(0.98 0.02 calc(255 + var(--iris, 0)) / 0.82);
+  --surface-2: oklch(0.95 0.03 calc(255 + var(--iris, 0)) / 0.66);
   --ink: oklch(0.3 0.04 270);
   --muted: oklch(0.45 0.05 270);
-  --border: oklch(0.6 0.12 calc(255 + var(--iris, 0deg)) / 0.55);
+  --border: oklch(0.6 0.12 calc(255 + var(--iris, 0)) / 0.55);
 
   --success-strong: oklch(0.5 0.15 165);
   --danger-strong: oklch(0.52 0.19 18);
@@ -211,32 +213,32 @@
 .era-2056.dark {
   color-scheme: dark;
   /* brighter primary so it reads on the dark holographic night; dark text on it (AA-verified) */
-  --primary: oklch(0.72 0.12 calc(245 + var(--iris, 0deg)));
-  --primary-hover: oklch(0.78 0.11 calc(245 + var(--iris, 0deg)));
-  --primary-strong: oklch(0.82 0.08 calc(245 + var(--iris, 0deg)));
-  --sky: oklch(0.76 0.11 calc(220 + var(--iris, 0deg)));
+  --primary: oklch(0.72 0.12 calc(245 + var(--iris, 0)));
+  --primary-hover: oklch(0.78 0.11 calc(245 + var(--iris, 0)));
+  --primary-strong: oklch(0.82 0.08 calc(245 + var(--iris, 0)));
+  --sky: oklch(0.76 0.11 calc(220 + var(--iris, 0)));
   --on-primary: oklch(0.16 0.03 255);
   --ink: oklch(0.95 0.02 265);
   --muted: oklch(0.78 0.04 268);
-  --surface: oklch(0.24 0.05 calc(272 + var(--iris, 0deg)) / 0.7);
-  --surface-2: oklch(0.29 0.06 calc(272 + var(--iris, 0deg)) / 0.64);
-  --border: oklch(0.62 0.12 calc(262 + var(--iris, 0deg)) / 0.55);
-  --navy: oklch(0.34 0.09 calc(268 + var(--iris, 0deg)));
+  --surface: oklch(0.24 0.05 calc(272 + var(--iris, 0)) / 0.7);
+  --surface-2: oklch(0.29 0.06 calc(272 + var(--iris, 0)) / 0.64);
+  --border: oklch(0.62 0.12 calc(262 + var(--iris, 0)) / 0.55);
+  --navy: oklch(0.34 0.09 calc(268 + var(--iris, 0)));
 }
 
 @layer base {
   /* luminous, slowly-morphing page base */
   .era-2056 body {
     background:
-      radial-gradient(70% 55% at 50% -8%, oklch(0.9 0.08 calc(250 + var(--iris, 0deg)) / 0.6), transparent 70%),
-      radial-gradient(60% 50% at 100% 100%, oklch(0.88 0.09 calc(330 + var(--iris, 0deg)) / 0.4), transparent 65%),
-      oklch(0.985 0.018 calc(258 + var(--iris, 0deg)));
+      radial-gradient(70% 55% at 50% -8%, oklch(0.9 0.08 calc(250 + var(--iris, 0)) / 0.6), transparent 70%),
+      radial-gradient(60% 50% at 100% 100%, oklch(0.88 0.09 calc(330 + var(--iris, 0)) / 0.4), transparent 65%),
+      oklch(0.985 0.018 calc(258 + var(--iris, 0)));
   }
   .era-2056.dark body {
     background:
-      radial-gradient(70% 55% at 50% -8%, oklch(0.5 0.13 calc(258 + var(--iris, 0deg)) / 0.55), transparent 70%),
-      radial-gradient(60% 50% at 100% 100%, oklch(0.45 0.14 calc(330 + var(--iris, 0deg)) / 0.4), transparent 65%),
-      oklch(0.17 0.04 calc(268 + var(--iris, 0deg)));
+      radial-gradient(70% 55% at 50% -8%, oklch(0.5 0.13 calc(258 + var(--iris, 0)) / 0.55), transparent 70%),
+      radial-gradient(60% 50% at 100% 100%, oklch(0.45 0.14 calc(330 + var(--iris, 0)) / 0.4), transparent 65%),
+      oklch(0.17 0.04 calc(268 + var(--iris, 0)));
   }
 
   /* sticky header becomes frosted glass over the morphing field */
@@ -250,18 +252,18 @@
   .era-2056 h2,
   .era-2056 h3 {
     letter-spacing: -0.01em;
-    text-shadow: 0 0 28px oklch(0.7 0.16 calc(258 + var(--iris, 0deg)) / 0.35);
+    text-shadow: 0 0 28px oklch(0.7 0.16 calc(258 + var(--iris, 0)) / 0.35);
   }
 
   .era-2056 ::selection {
-    background: oklch(0.7 0.16 calc(258 + var(--iris, 0deg)) / 0.3);
+    background: oklch(0.7 0.16 calc(258 + var(--iris, 0)) / 0.3);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .era-2056 {
     animation: none;
-    --iris: 0deg;
+    --iris: 0;
   }
 }
 
@@ -275,19 +277,19 @@
 
 /* logo reads as glowing holographic nodes in 2056 (and the primary node stays visible) */
 .era-2056 .logo-mark circle {
-  filter: drop-shadow(0 0 2px oklch(0.85 0.12 calc(250 + var(--iris, 0deg)) / 0.7));
+  filter: drop-shadow(0 0 2px oklch(0.85 0.12 calc(250 + var(--iris, 0)) / 0.7));
 }
 
 /* OS-window modals: opaque frosted glass + glow so dialogs read over the morphing field
    (fixes the translucent, see-through modal in 2056) */
 .era-2056 [role="dialog"] {
-  background-color: oklch(0.98 0.025 calc(255 + var(--iris, 0deg)) / 0.9);
+  background-color: oklch(0.98 0.025 calc(255 + var(--iris, 0)) / 0.9);
   backdrop-filter: blur(28px) saturate(1.5);
   -webkit-backdrop-filter: blur(28px) saturate(1.5);
-  box-shadow: 0 0 60px -14px oklch(0.7 0.16 calc(258 + var(--iris, 0deg)) / 0.6);
+  box-shadow: 0 0 60px -14px oklch(0.7 0.16 calc(258 + var(--iris, 0)) / 0.6);
 }
 .era-2056.dark [role="dialog"] {
-  background-color: oklch(0.2 0.05 calc(270 + var(--iris, 0deg)) / 0.92);
+  background-color: oklch(0.2 0.05 calc(270 + var(--iris, 0)) / 0.92);
 }
 
 /* cinematic SPA route morph in 2056; the present-day keeps the browser default */
