@@ -7,7 +7,7 @@ export default function ComponentsLayout() {
     <div className="mx-auto flex max-w-7xl gap-10 px-6 py-12">
       <aside className="hidden w-52 shrink-0 md:block">
         <nav className="sticky top-12 space-y-6">
-          <NavLink to="/components" end className="block font-sans text-sm font-semibold text-ink">
+          <NavLink to="/admin/components" end className="block font-sans text-sm font-semibold text-ink">
             Components
           </NavLink>
           {componentsByCategory().map(({ category, items }) => (
@@ -17,7 +17,7 @@ export default function ComponentsLayout() {
                 {items.map((c) => (
                   <li key={c.slug}>
                     <NavLink
-                      to={`/components/${c.slug}`}
+                      to={`/admin/components/${c.slug}`}
                       className={({ isActive }) =>
                         cn(
                           "block rounded-md px-2 py-1 font-sans text-sm transition-colors",

@@ -24,7 +24,7 @@ export default function ComponentsIndex() {
           {components.map((c) => (
             <div key={c.slug} className="flex min-h-56 flex-col bg-surface p-6">
               <Link
-                to={`/components/${c.slug}`}
+                to={`/admin/components/${c.slug}`}
                 className="font-sans text-sm font-medium text-muted transition-colors hover:text-ink"
               >
                 {c.name}

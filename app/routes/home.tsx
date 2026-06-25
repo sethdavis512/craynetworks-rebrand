@@ -115,9 +115,6 @@ export default function Home() {
             <a href="#services" className="hidden rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:text-ink sm:inline-block">
               Services
             </a>
-            <Link to="/components" className="hidden rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:text-ink sm:inline-block">
-              Components
-            </Link>
             <a href="#contact" className={buttonVariants({ size: "sm" })}>
               Request a quote
             </a>
@@ -251,7 +248,6 @@ export default function Home() {
           <Logo />
           <nav className="flex gap-4 font-sans text-sm text-muted">
             <a href="#services" className="hover:text-ink">Services</a>
-            <Link to="/components" className="hover:text-ink">Components</Link>
             <a href="#contact" className="hover:text-ink">Contact</a>
           </nav>
           <p className="font-sans text-sm text-muted">Central Texas IT, since 2003.</p>
