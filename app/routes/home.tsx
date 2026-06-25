@@ -6,6 +6,7 @@ import { Badge } from "../components/ui/Badge";
 import { SiteHeader } from "../components/site/SiteHeader";
 import { SiteFooter } from "../components/site/SiteFooter";
 import { ContactForm } from "../components/site/ContactForm";
+import { HeroMotif } from "../components/site/HeroMotif";
 import { useReducedMotion } from "../lib/useReducedMotion";
 
 export function meta({}: Route.MetaArgs) {
@@ -43,38 +44,21 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
 };
 
-/** Decorative network-node constellation. Purely ornamental; recolors via currentColor. */
-function NetworkMotif() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 240 200"
-      className="pointer-events-none absolute -right-10 top-1/2 hidden h-[120%] -translate-y-1/2 text-on-navy/25 lg:block"
-      fill="none"
-    >
-      <g stroke="currentColor" strokeWidth="1.25" opacity="0.6">
-        <path d="M40 30 L120 60 L90 130 L170 110 L210 40 M120 60 L190 150 M90 130 L60 180 M170 110 L210 40" />
-      </g>
-      <g fill="currentColor">
-        <circle cx="40" cy="30" r="3" />
-        <circle cx="120" cy="60" r="3.5" />
-        <circle cx="90" cy="130" r="3" />
-        <circle cx="190" cy="150" r="3" />
-        <circle cx="60" cy="180" r="3" />
-        <circle cx="210" cy="40" r="4" className="fill-amber" />
-        <circle cx="170" cy="110" r="3.5" className="fill-sky" />
-      </g>
-    </svg>
-  );
-}
-
 function ServiceCard({ s }: { s: Service }) {
   return (
     <Link
       to={`/services/${s.slug}`}
-      className="block h-full rounded-lg border border-border bg-surface-2 p-6 transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/40"
+      className="group block h-full rounded-lg border border-border bg-surface-2 p-6 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
     >
-      <h3 className="font-sans text-lg font-semibold text-ink">{s.name}</h3>
+      <h3 className="flex items-center gap-1.5 font-sans text-lg font-semibold text-ink">
+        {s.name}
+        <span
+          aria-hidden="true"
+          className="-translate-x-1 text-primary-strong opacity-0 transition-[transform,opacity] group-hover:translate-x-0 group-hover:opacity-100"
+        >
+          &rarr;
+        </span>
+      </h3>
       <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
     </Link>
   );
@@ -91,7 +75,7 @@ export default function Home() {
 
       {/* Drenched navy hero (owns the brand color in both themes). Always visible: no entrance gating. */}
       <section className="relative isolate overflow-hidden bg-navy text-on-navy">
-        <NetworkMotif />
+        <HeroMotif />
         <div className="relative mx-auto max-w-5xl px-6 py-24 sm:py-32">
           <span className="inline-flex items-center gap-2 rounded-full border border-on-navy/25 px-3 py-1 font-sans text-sm text-on-navy/80">
             <span className="size-1.5 rounded-full bg-amber" />

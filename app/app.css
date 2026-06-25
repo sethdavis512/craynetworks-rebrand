@@ -150,3 +150,37 @@
     text-wrap: pretty;
   }
 }
+
+/* Hero network motif: gentle life, disabled under reduced motion */
+@keyframes cn-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes cn-edge-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+.cn-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cn-float 6s ease-in-out infinite;
+}
+.cn-edge {
+  animation: cn-edge-pulse 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cn-node,
+  .cn-edge {
+    animation: none;
+  }
+}
