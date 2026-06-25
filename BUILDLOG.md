@@ -38,3 +38,14 @@ pillar, and it elevates everything already built (all components re-theme at onc
 (focus trap, scroll lock, Escape, aria). The global theme Drawer is `Sheet side="right"`.
 **Why:** One accessible primitive powers the Drawer, future mobile nav, and canvas detail panels.
 **Demonstrates:** Composable, accessible overlay engineering; dogfooding (the Drawer uses it).
+
+## Stage 09 - Marketing page   (tag: stage-09-marketing)
+
+**Built:** The Cray rebrand landing at `/`: hand-coded SVG `<Logo />` (network-node "C"), sticky
+nav, hero with a single clear CTA, services grid, "why Cray" values, service-area band, a working
+contact CTA, and a footer, all composed from the design-system components and re-theming live via
+the Drawer. Subtle scroll reveals via Motion through a shared `useReducedMotion` (reduced motion
+renders static). Replaces the token-preview scratch route.
+**Why:** This is the surface a reviewer lands on first; it has to read as a believable, better Cray
+and prove the components hold up in a real composition.
+**Demonstrates:** Brand identity, restraint, typography, and the design system dogfooded end to end.
