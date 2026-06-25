@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "@fontsource-variable/hanken-grotesk": "^5.2.8",
+    "@fontsource-variable/literata": "^5.2.8",
     "@react-router/node": "8.0.0",
     "@react-router/serve": "8.0.0",
     "isbot": "^5.1.36",

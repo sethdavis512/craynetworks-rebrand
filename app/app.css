@@ -1,15 +1,129 @@
 @import "tailwindcss";
+@import "@fontsource-variable/hanken-grotesk";
+@import "@fontsource-variable/literata";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+/*
+ * Token contract (Principle I/II). Raw semantic vars live in :root / .dark and are the
+ * shipped system; they are NEVER mutated at runtime. @theme inline maps them into Tailwind's
+ * namespaces so utilities emit var() references and stay override-able by the live theming
+ * engine (which sets channels like --primary-l/c/h inline on <html>). See app/theme/tokens.ts.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* primitive: brand channels (the live OKLCH lab drives these) */
+  --primary-l: 0.58;
+  --primary-c: 0.11;
+  --primary-h: 232; /* refined Cray blue, anchored on #178fc0 */
+  --primary: oklch(var(--primary-l) var(--primary-c) var(--primary-h));
+  --primary-hover: oklch(0.52 0.11 232);
+  --sky: oklch(0.7 0.115 230); /* brighter interactive blue, #18a7e1 */
+  --navy: oklch(0.34 0.065 242); /* depth, #094369 */
+  --amber: oklch(0.8 0.12 72); /* complementary pop */
+  --on-primary: oklch(0.99 0.004 240); /* text/icon on primary fills */
+
+  /* primitive: neutrals (whisper of brand hue, not warm-by-default) */
+  --surface: oklch(0.99 0.004 240);
+  --surface-2: oklch(0.975 0.005 240);
+  --ink: oklch(0.25 0.02 245);
+  --muted: oklch(0.52 0.02 245);
+  --border: oklch(0.91 0.008 240);
+
+  /* semantic status */
+  --success: oklch(0.55 0.12 150);
+  --info: oklch(0.58 0.11 232);
+  --warning: oklch(0.72 0.13 75);
+  --danger: oklch(0.55 0.17 25);
+
+  /* foundation: spacing/radius flow through tokens so density/radius cascade */
+  --radius-base: 0.625rem;
+  --font-heading: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Literata Variable", ui-serif, Georgia, "Times New Roman", serif;
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+.dark {
+  color-scheme: dark;
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+  --primary-l: 0.72;
+  --primary-c: 0.11;
+  --primary-h: 232;
+  --primary-hover: oklch(0.78 0.11 232);
+  --sky: oklch(0.76 0.115 230);
+  --amber: oklch(0.82 0.12 72);
+  --on-primary: oklch(0.16 0.02 245);
+
+  --surface: oklch(0.19 0.02 245); /* navy-tinted dark, "Cray at night", from #031421 */
+  --surface-2: oklch(0.235 0.02 245);
+  --ink: oklch(0.95 0.006 240);
+  --muted: oklch(0.7 0.014 240);
+  --border: oklch(0.32 0.016 245);
+
+  --success: oklch(0.7 0.13 150);
+  --warning: oklch(0.8 0.13 75);
+  --danger: oklch(0.68 0.17 25);
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-sky: var(--sky);
+  --color-navy: var(--navy);
+  --color-amber: var(--amber);
+
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-success: var(--success);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --font-sans: var(--font-heading);
+  --font-serif: var(--font-body);
+
+  --radius-sm: calc(var(--radius-base) * 0.5);
+  --radius: var(--radius-base);
+  --radius-md: var(--radius-base);
+  --radius-lg: calc(var(--radius-base) * 1.6);
+  --radius-xl: calc(var(--radius-base) * 2.4);
+}
+
+@layer base {
+  body {
+    background-color: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  h1 {
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* light type on dark needs more breathing room */
+  .dark body {
+    font-weight: 380;
   }
 }
