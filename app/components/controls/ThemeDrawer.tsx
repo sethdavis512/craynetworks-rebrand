@@ -106,6 +106,20 @@ export function ThemeDrawer() {
     </div>
   );
 
+  const heroPanel = (
+    <div className="space-y-5">
+      <Field label="Node count" value={String(Math.round(state.hero.count))} hint="How many nodes float in the hero graph">
+        <input type="range" min={16} max={140} step={2} value={state.hero.count} onChange={(e) => update({ hero: { count: Number(e.target.value) } })} className={rangeClass} />
+      </Field>
+      <Field label="Drift speed" value={state.hero.speed.toFixed(2)} hint="How lively the graph keeps moving">
+        <input type="range" min={0} max={1} step={0.01} value={state.hero.speed} onChange={(e) => update({ hero: { speed: Number(e.target.value) } })} className={rangeClass} />
+      </Field>
+      <Field label="Spread" value={state.hero.spread.toFixed(2)} hint="How far the nodes push apart">
+        <input type="range" min={0} max={1} step={0.01} value={state.hero.spread} onChange={(e) => update({ hero: { spread: Number(e.target.value) } })} className={rangeClass} />
+      </Field>
+    </div>
+  );
+
   return (
     <>
       <div className="fixed bottom-5 right-5 z-30 flex items-center gap-2">
@@ -135,6 +149,7 @@ export function ThemeDrawer() {
           items={[
             { value: "tokens", label: "Tokens", content: tokensPanel },
             { value: "type", label: "Type", content: typePanel },
+            { value: "hero", label: "Hero", content: heroPanel },
           ]}
         />
         <Button variant="ghost" size="sm" onClick={reset} className="mt-6">

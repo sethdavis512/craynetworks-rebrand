@@ -6,7 +6,7 @@ import { Badge } from "../components/ui/Badge";
 import { SiteHeader } from "../components/site/SiteHeader";
 import { SiteFooter } from "../components/site/SiteFooter";
 import { ContactForm } from "../components/site/ContactForm";
-import { HeroMotif } from "../components/site/HeroMotif";
+import { HeroGraph } from "../components/site/HeroGraph";
 import { useReducedMotion } from "../lib/useReducedMotion";
 
 export function meta({}: Route.MetaArgs) {
@@ -75,7 +75,11 @@ export default function Home() {
 
       {/* Drenched navy hero (owns the brand color in both themes). Always visible: no entrance gating. */}
       <section className="relative isolate overflow-hidden bg-navy text-on-navy">
-        <HeroMotif />
+        <HeroGraph />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy via-navy/70 to-transparent"
+        />
         <div className="relative mx-auto max-w-5xl px-6 py-24 sm:py-32">
           <span className="inline-flex items-center gap-2 rounded-full border border-on-navy/25 px-3 py-1 font-sans text-sm text-on-navy/80">
             <span className="size-1.5 rounded-full bg-amber" />

@@ -36,6 +36,13 @@ export const ThemeStateSchema = z.object({
       tracking: z.coerce.number().min(-0.05).max(0.08).default(0),
     })
     .default({ family: "serif", scale: 1, weight: 400, opsz: 18, tracking: 0 }),
+  hero: z
+    .object({
+      count: z.coerce.number().min(16).max(140).default(52),
+      speed: z.coerce.number().min(0).max(1).default(0.5),
+      spread: z.coerce.number().min(0).max(1).default(0.5),
+    })
+    .default({ count: 52, speed: 0.5, spread: 0.5 }),
 });
 
 export type ThemeState = z.infer<typeof ThemeStateSchema>;
@@ -56,6 +63,9 @@ export function serialize(state: ThemeState): string {
     tw: String(state.type.weight),
     to: String(state.type.opsz),
     tk: String(state.type.tracking),
+    hc: String(state.hero.count),
+    hs: String(state.hero.speed),
+    hp: String(state.hero.spread),
   }).toString();
 }
 
@@ -74,6 +84,11 @@ export function deserialize(input: string | null | undefined): ThemeState {
       weight: p.get("tw") ?? undefined,
       opsz: p.get("to") ?? undefined,
       tracking: p.get("tk") ?? undefined,
+    },
+    hero: {
+      count: p.get("hc") ?? undefined,
+      speed: p.get("hs") ?? undefined,
+      spread: p.get("hp") ?? undefined,
     },
   };
   const result = ThemeStateSchema.safeParse(candidate);

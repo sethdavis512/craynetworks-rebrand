@@ -3,7 +3,12 @@ import { DEFAULT_THEME_STATE, FONT_STACKS, serialize, THEME_COOKIE, type ThemeSt
 
 type AccentPatch = Partial<ThemeState["accent"]>;
 type TypePatch = Partial<ThemeState["type"]>;
-type ThemePatch = Partial<Omit<ThemeState, "accent" | "type">> & { accent?: AccentPatch; type?: TypePatch };
+type HeroPatch = Partial<ThemeState["hero"]>;
+type ThemePatch = Partial<Omit<ThemeState, "accent" | "type" | "hero">> & {
+  accent?: AccentPatch;
+  type?: TypePatch;
+  hero?: HeroPatch;
+};
 
 type ThemeContextValue = {
   state: ThemeState;
@@ -74,6 +79,7 @@ export function ThemeProvider({ initialState, children }: { initialState: ThemeS
       ...patch,
       accent: { ...prev.accent, ...(patch.accent ?? {}) },
       type: { ...prev.type, ...(patch.type ?? {}) },
+      hero: { ...prev.hero, ...(patch.hero ?? {}) },
     }));
   }, []);
 
