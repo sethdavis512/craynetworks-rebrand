@@ -36,9 +36,35 @@ The *placement* of each control is itself the demonstration. Deciding rule: **sc
 - **Inline controls = component/instance API layer.** Scoped, local props that show a single component's flexibility without leaking: a banner's tone, a button's variant/size, a card's elevation, an element's corner radius.
 - **Dual-altitude controls are the highlight.** Some controls live at *both* layers intentionally: the Drawer sets the **base radius token**, while a banner exposes an inline `sm/md/lg/full` choice expressed as a multiple of that base — so dragging the global radius shifts the inline "lg" with it. Same for color: global hue drives the ramp; inline "intent" picks which *semantic* token a component points at. This live linkage (foundation cascading into local override) reads as "understands token architecture, not just CSS." Surface it as an explicit teaching note in the docs.
 
-## Typography (full type lab)
+## Typography (full type lab) — FLAGSHIP SURFACE
 
-Live modular-scale ratio control, variable-font axis sliders (weight, optical size), live heading×body pairing swap, and leading/measure/tracking demonstrations, all re-rendering the real type scale instantly through the same override engine. Specimen views show scale, rhythm, and pairing rationale. Requires **variable fonts** so axes are real.
+Typography is the single most emphasized thing in this build (PRODUCT.md principle: *typography carries the brand*). The type lab is a hero surface, not a docs afterthought, and every control re-renders the real type instantly through the same CSS-var override engine (Principle II), so nothing is a mockup. Requires **variable fonts** so the axes are real.
+
+**Global type controls (Drawer, foundation layer, cascade app-wide):**
+
+- Font pairing swap (heading family x body family)
+- Base/root font size
+- Modular scale ratio (1.2 to 1.5; Impeccable floor is >= 1.25, flat scales read as uncommitted)
+- Variable-font axes exposed by the chosen faces: weight, and optical size / grade / slant where available
+- Global leading (line-height) and tracking (letter-spacing)
+- Density (spacing rhythm around type)
+
+**Per-specimen / inline controls (scoped to one specimen, the lab's playground):**
+
+- Size per role (display / h1 / h2 / h3 / body / caption / mono)
+- Leading (line-height) per role
+- Tracking (letter-spacing); display floor >= -0.04em per Impeccable
+- Measure (line length in ch), with the 65 to 75ch comfort range marked
+- Paragraph spacing / vertical rhythm
+- Weight and optical size (variable axes)
+- Text color: pick which semantic ink token (ink / muted / accent-on-surface) with a live APCA + WCAG contrast readout, so "configure the color of type" is tied to the token system and proven legible
+- Case (none / upper / small-caps), alignment, and `text-wrap` (balance on h1 to h3, pretty on prose)
+
+**Specimen views:** full scale ramp, a paragraph set at the chosen measure, a weight waterfall, and a pangram, each updating live. Specimen also shows the pairing rationale and the resolved values (size/leading/tracking/measure) as readable output, so the viewer sees the system, not just the result.
+
+**Built-in good-typography guardrails** (so the lab teaches, and can't be dragged into slop): cap measure at 65 to 75ch, ratio >= 1.25, display tracking >= -0.04em, hero clamp max <= ~6rem, and add 0.05 to 0.1 line-height for light-on-dark. Surface these as gentle annotations when a control approaches a limit.
+
+**Font decision (resolved):** pairing is **Hanken Grotesk** (headings) x **Literata** (body). Inter was dropped because Impeccable's brand register lists it (and Space Grotesk, Fraunces) as reflex-reject defaults, and Cray has no committed brand font to preserve. Literata is a warm variable serif with a genuine `opsz` + `wght` axis (not reflex-rejected), so the lab's optical-size control is real. Alternative on file if an all-sans look is later preferred: Roboto Flex (also `opsz`).
 
 ## OKLCH color lab
 

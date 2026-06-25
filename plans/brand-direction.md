@@ -6,7 +6,7 @@
 
 - **Core palette:** refined Cray blue/white in OKLCH (table below), navy-tinted dark mode.
 - **Complementary pop:** **Amber** `oklch(0.80 0.12 72)` (dark `0.82 0.12 72`), used sparingly (~5%) for CTAs/highlights. Native to their current template, true complement to the blue.
-- **Type pairing:** **Hanken Grotesk** (headings, `wght`) x **Inter** (body, `wght`), self-hosted via Fontsource. A polished evolution of their current sans.
+- **Type pairing:** **Hanken Grotesk** (headings, `wght`) x **Literata** (body, `opsz` + `wght`), self-hosted via Fontsource. Sans headings plus a warm reading serif with a real optical-size axis, so the flagship type lab's `opsz` control is genuine. Inter was dropped: it is on Impeccable's reflex-reject list and undercuts a typography-forward brand.
 - **Logo:** hand-coded SVG `C` from network nodes/edges + lowercase wordmark, recolors via tokens.
 
 ## Cray's current palette (extracted from their template CSS)
@@ -52,13 +52,15 @@ One restrained accent for CTAs, highlights, and emphasis (used sparingly, ~5% of
 
 Status hues (`success ~150`, `info` = the brand blue, `warning ~75`, `danger ~25`) are derived separately in OKLCH regardless of the pop choice.
 
-## Decision 2 — type pairing  → CHOSEN: 1 (Hanken Grotesk x Inter)
+## Decision 2 — type pairing  → CHOSEN: Hanken Grotesk x Literata (revised)
 
 Cray currently uses default template sans. An enhancement should feel like a sharpened version of that, clean, legible, professional, so the choice leans **sans** rather than a dramatic serif. All options are variable + open-licensed so the type lab axes are real.
 
-- **1 — Hanken Grotesk x Inter.** Warm geometric-humanist headings + Inter body. Friendly, trustworthy, low-risk; reads as a polished evolution of their current look. Axes: weight. **← chosen**
-- **2 — Space Grotesk x Inter.** Headings with subtle technical character (great for an IT brand) + neutral Inter body. A touch more "engineered." Axes: weight.
-- **3 — Fraunces x Inter.** Variable serif headings (real optical-size axis, best type-lab demo) + Inter body. The biggest differentiator and the most impressive lab, but the largest deviation from their current sans identity.
+- **1 — Hanken Grotesk x Inter.** (original pick, REVISED below) Warm geometric-humanist headings + Inter body. Inter is on Impeccable's reflex-reject list, so the body was changed.
+- **2 — Space Grotesk x Inter.** Headings with subtle technical character + neutral Inter body. Both faces are reflex-rejects; passed.
+- **3 — Fraunces x Inter.** Variable serif headings + Inter body. Both reflex-rejects; passed.
+
+**Revised pick (final): Hanken Grotesk x Literata.** Headings stay **Hanken Grotesk** (not on the ban list). Body is **Literata**, a warm, highly readable variable serif with a genuine `opsz` (optical-size) + `wght` axis, also not reflex-rejected. Rationale: serif + sans is Impeccable's preferred contrast-axis pairing; the serif body gives a warm, trustworthy reading voice that suits a local IT brand and escapes the all-sans IT cliche; and the real `opsz` axis makes the flagship type lab's optical-size control genuine rather than faked. Alternative if an all-sans look is preferred for continuity: Roboto Flex (also `opsz`).
 
 ## Logo (unchanged approach)
 
@@ -66,4 +68,4 @@ Hand-coded SVG `<Logo />`: a refined `C` from network nodes + edges (ties to the
 
 ## Outcome
 
-Signed off: refined core blue/white **+ Amber pop + Hanken Grotesk x Inter**. Maximum continuity with Cray's identity, a single warm accent that's already in their world, and a clean typographic upgrade. Dark mode and the real token system carry the "wow." The before/after thesis: *same brand, finally systematized.* These values are the canonical defaults for `tokens.ts`; `DESIGN.md` is generated to match.
+Signed off: refined core blue/white **+ Amber pop + Hanken Grotesk x Literata**. Maximum continuity with Cray's identity, a single warm accent that's already in their world, and a clean typographic upgrade. Dark mode and the real token system carry the "wow." The before/after thesis: *same brand, finally systematized.* These values are the canonical defaults for `tokens.ts`; `DESIGN.md` is generated to match.

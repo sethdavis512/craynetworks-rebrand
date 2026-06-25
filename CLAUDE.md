@@ -11,7 +11,7 @@ There is no code yet. The single source of truth is the planning set in `plans/`
 - `plans/interactive-showcase-wow-layer.md` — live theming engine, global Drawer vs inline controls, OKLCH color lab, type lab, `/colophon`.
 - `plans/impeccable-integration.md` — Impeccable setup, per-surface quality gates, PRODUCT.md/DESIGN.md as evidence.
 - `plans/simulated-data-and-dynamic-interactions.md` — simulated RR8 data/forms, `/explore` infinite canvas, direction-aware `<Sheet>`.
-- `plans/brand-direction.md` — signed-off brand: refined Cray blue/white in OKLCH, amber pop, Hanken Grotesk x Inter.
+- `plans/brand-direction.md` — signed-off brand: refined Cray blue/white in OKLCH, amber pop, Hanken Grotesk x Literata.
 - `plans/commit-strategy.md` — layer-by-layer commit convention, stage tags, and the `BUILDLOG.md` narrative.
 
 ## What this project is
