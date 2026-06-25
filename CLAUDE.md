@@ -2,9 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Status: pre-implementation
+## Status: built & deployed
 
-There is no code yet. The single source of truth is the planning set in `plans/`. **Read `plans/00-architecture-and-integration.md` first** — it is the integration spine and wins over the others on any conflict.
+The app is built and live on **Railway** (https://cray-networks-rebrand.up.railway.app), **auto-deployed on every push to `main`** (the service is connected to this GitHub repo). The **code is the source of truth**; `plans/` is the historical planning set and `BUILDLOG.md` narrates the build. The plans describe some things that were renamed or built differently, trust the code on any conflict. Notably: tokens live in **`app/app.css`** (there is no `app/theme/tokens.ts` and no `app/styles/`); the system/colophon surfaces became **`/admin/components`** and **`/admin/behind-the-rebrand`**; the `/explore` canvas was not built.
+
+**Visual changes must be verified in a real browser with `agent-browser`** (screenshot + computed-style check) before claiming they work, per the global rule. Don't reason about rendering blind.
 
 - `plans/00-architecture-and-integration.md` — cross-cutting contracts (token model, SSR/runtime, routing, animation policy, source-of-truth, determinism) and the master build order.
 - `plans/cray-networks-rebrand.md` — base rebrand: brand identity, ~24-component Base UI library, marketing page, before/after.
@@ -26,8 +28,6 @@ React Router 8 (framework mode, **SSR**, `@react-router/fs-routes` flat conventi
 - **Node + `react-router-serve`** for the production SSR server (avoids the known Bun + react-router-serve crash). The app is SSR, not static, because the theme cookie loader, form actions, and deferred loaders need a server.
 
 ## Commands
-
-These activate once the project is scaffolded (no `package.json` exists yet):
 
 - `bun install` — install deps
 - `bun dev` — dev server (also what Impeccable `live` mode and `/run` drive)
@@ -53,6 +53,10 @@ These activate once the project is scaffolded (no `package.json` exists yet):
 **Component library** (`app/components/ui/`): Base UI primitives where they exist; plain elements only where Base UI has none (Button, Card, Badge, Table). Dogfooded into every page.
 
 **Animation policy** (three systems, kept in lanes): Motion = scroll-reveal / page-level only; Base UI `data-state` + CSS transforms = `<Sheet>` (no Motion spring); custom pointer+transform = `/explore` canvas. One shared `useReducedMotion` consumed by all three.
+
+## 2056 "future mode" (the `era` flag)
+
+A second skin lives alongside the present-day site. `ThemeState.era` (`"standard" | "2056"`) is toggled by the bottom-right **2056** pill (`app/components/controls/EraToggle.tsx`) and applies an **`.era-2056` class on `<html>`** (ThemeProvider suppresses the present-day inline token overrides so the curated class skin wins; root.tsx sets it at SSR too). The skin lives at the end of `app/app.css`: a holographic OKLCH palette whose hue rides an animated `@property --iris` (a unitless **`<number>`** — it is added to a bare hue in `oklch(... calc(H + var(--iris)))`, so it must never be an `<angle>`, that mix is invalid CSS and silently breaks the dependent tokens to transparent). The global future-OS layer (`app/components/era/`) renders only in 2056: `Era2056Shell` (HUD), `SpaceField` (Canvas grid), `CommandPalette` (Cmd-K), with a bespoke `Home2056` (Voronoi/orbital hero, decode text). All era effects are reduced-motion safe and client-gated (SSR-safe).
 
 ## Conventions
 

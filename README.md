@@ -1,87 +1,51 @@
-# Welcome to React Router!
+# Cray Networks — rebrand
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A rebrand of [Cray Networks](https://www.craynetworks.com/), a Central Texas IT shop, built as a
+design-engineering portfolio piece. The bar is "this person understands how design systems
+function," demonstrated live: **typography**, **token architecture**, and **real-time theming**
+you can drive yourself.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+**Live:** https://cray-networks-rebrand.up.railway.app
 
-## Features
+## Highlights
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- **Live theming engine.** The canonical OKLCH tokens in `app/app.css` are never mutated at
+  runtime; a Context override layer writes inline CSS vars on `<html>`, so the whole UI re-themes
+  instantly with no consumer re-renders. State persists in a cookie read by the root loader (no
+  FOUC) and is shareable via `?theme=`. Drive it from the **Theme** drawer (Tokens / Type / Hero).
+- **2056 mode.** A bottom-right **2056** pill flips the entire site into a holographic future-OS via
+  an `.era-2056` class skin: morphing OKLCH colors, Space Grotesk + mono (lazy-loaded), a persistent
+  HUD shell, a Cmd-K command palette, cross-route view transitions, a boot sequence, and a Canvas
+  grid + orbital-core hero. Same content, different world. All of it is reduced-motion safe.
+- **~13-component Base UI library**, dogfooded into every page and browsable at `/admin/components`.
+- **`/admin/behind-the-rebrand`** — a scroll-driven case study (before/after reveal, interactive
+  logo anatomy, the decisions and why, a build-stage timeline).
 
-## Getting Started
+## Stack
 
-### Installation
+React Router 8 (framework mode, **SSR**) · Vite · Tailwind v4 · Base UI · Motion · D3
+(`d3-force`/`d3-delaunay`) · OKLCH design tokens · Impeccable (design tooling). **Bun** for
+install/dev/build/scripts; **Node** runs the production SSR server (`react-router-serve`).
 
-Install the dependencies:
-
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
+## Commands
 
 ```bash
-npm run build
+bun install          # install dependencies
+bun dev              # dev server at http://localhost:5173
+bun run build        # production build
+bun run start        # production SSR server (react-router-serve, Node)
+bun run typecheck    # react-router typegen + tsc
+bun run test         # vitest (co-located *.test.ts)
 ```
 
-## Deployment
+## Deploy
 
-### Docker Deployment
+Deployed on **Railway**, connected to this GitHub repo: **every push to `main` auto-deploys**.
+The build uses a multi-stage `Dockerfile` that installs and builds with **Bun** but serves on
+**Node** (`react-router-serve` crashes under Bun); glibc throughout so Bun-installed native deps
+stay compatible. The builder is pinned to `DOCKERFILE` via `railway.json`.
 
-To build and run using Docker:
+## Repository
 
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+See `CLAUDE.md` for architecture and conventions, `plans/` for the planning set, and `BUILDLOG.md`
+for the stage-by-stage build narrative. The git history is intentionally part of the work.
