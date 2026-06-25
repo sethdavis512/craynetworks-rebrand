@@ -4,9 +4,9 @@ import { SiteFooter } from "../components/site/SiteFooter";
 
 export default function ServicesLayout() {
   return (
-    <div>
+    <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main>
+      <main className="flex-1">
         <Outlet />
       </main>
       <SiteFooter />

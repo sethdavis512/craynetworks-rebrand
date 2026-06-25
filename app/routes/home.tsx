@@ -86,7 +86,7 @@ export default function Home() {
   const featured = services.find((s) => s.featured);
 
   return (
-    <div>
+    <div className="flex min-h-dvh flex-col">
       <SiteHeader />
 
       {/* Drenched navy hero (owns the brand color in both themes). Always visible: no entrance gating. */}
@@ -122,7 +122,7 @@ export default function Home() {
         </div>
       </section>
 
-      <main className="mx-auto max-w-5xl px-6">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-6">
         {/* Services: featured card breaks the grid, then a trio with hover lift + stagger */}
         <section id="services" className="scroll-mt-20 py-20">
           <h2 className="text-3xl font-semibold tracking-tight text-ink">What we do</h2>

@@ -34,9 +34,9 @@ export default function Quote() {
   const { total, cadence } = computeEstimate({ service, quantity: q, onsite, monitoring, priority });
 
   return (
-    <div>
+    <div className="flex min-h-dvh flex-col">
       <SiteHeader />
-      <main className="mx-auto max-w-5xl px-6 py-16">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-16">
         <h1 className="text-4xl font-semibold tracking-tight text-ink">Estimate your plan</h1>
         <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted">
           A quick, honest ballpark for the work you have in mind. Slide things around; the real quote
