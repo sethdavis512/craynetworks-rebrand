@@ -16,6 +16,7 @@ export const components: ComponentMeta[] = [
   { slug: "tabs", name: "Tabs", category: "Navigation", summary: "Switch between related panels." },
   { slug: "dialog", name: "Dialog", category: "Overlays", summary: "A modal surface for focused tasks." },
   { slug: "tooltip", name: "Tooltip", category: "Overlays", summary: "A hint shown on hover or focus." },
+  { slug: "sheet", name: "Sheet", category: "Overlays", summary: "A panel that slides in from any edge." },
   { slug: "badge", name: "Badge", category: "Data display", summary: "A small status or category label." },
   { slug: "card", name: "Card", category: "Data display", summary: "A surface that groups related content." },
   { slug: "avatar", name: "Avatar", category: "Data display", summary: "Represent a person or entity." },

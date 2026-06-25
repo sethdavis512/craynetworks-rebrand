@@ -20,3 +20,21 @@ the variable fonts (Hanken Grotesk headings, Literata body) via Fontsource.
 what make instant live theming possible later without re-rendering consumers (Principle I/II).
 **Demonstrates:** Token-system architecture; the foundation of the live theming engine. Refined
 Cray blue/white in OKLCH with a navy-tinted dark mode they never had, plus an amber pop.
+
+## Stage 03 - Live theming engine   (tag: stage-03-theming-engine)
+
+**Built:** The real-time theming layer. Pure, unit-tested core (`theme-state.ts` serialize/parse
+with Zod validation, `oklch.ts` helpers); a `ThemeProvider` that applies the override layer as
+inline CSS vars on `<html>` (so consumers never re-render); cookie persistence read in the root
+loader and injected at SSR for no FOUC; a shareable `?theme=` link; and a global control Drawer
+(mode, accent hue/chroma/lightness, radius, density) with reset.
+**Why:** The "click a switch, the whole product re-themes instantly" experience is the centerpiece
+pillar, and it elevates everything already built (all components re-theme at once).
+**Demonstrates:** Real-time switching/toggling; systems thinking; SSR-correct, flash-free theming.
+
+## Stage 05 - Sheet   (tag: stage-05-sheet)
+
+**Built:** A direction-aware `<Sheet>` (top/right/bottom/left) on the Base UI Dialog primitive
+(focus trap, scroll lock, Escape, aria). The global theme Drawer is `Sheet side="right"`.
+**Why:** One accessible primitive powers the Drawer, future mobile nav, and canvas detail panels.
+**Demonstrates:** Composable, accessible overlay engineering; dogfooding (the Drawer uses it).

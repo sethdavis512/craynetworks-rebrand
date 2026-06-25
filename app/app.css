@@ -17,8 +17,8 @@
   --primary-c: 0.11;
   --primary-h: 232; /* refined Cray blue, anchored on #178fc0 */
   --primary: oklch(var(--primary-l) var(--primary-c) var(--primary-h));
-  --primary-hover: oklch(0.52 0.11 232);
-  --sky: oklch(0.7 0.115 230); /* brighter interactive blue, #18a7e1 */
+  --primary-hover: oklch(calc(var(--primary-l) - 0.06) var(--primary-c) var(--primary-h));
+  --sky: oklch(calc(var(--primary-l) + 0.12) var(--primary-c) var(--primary-h));
   --navy: oklch(0.34 0.065 242); /* depth, #094369 */
   --amber: oklch(0.8 0.12 72); /* complementary pop */
   --on-primary: oklch(0.99 0.004 240); /* text/icon on primary fills */
@@ -51,8 +51,8 @@
   --primary-l: 0.72;
   --primary-c: 0.11;
   --primary-h: 232;
-  --primary-hover: oklch(0.78 0.11 232);
-  --sky: oklch(0.76 0.115 230);
+  --primary-hover: oklch(calc(var(--primary-l) + 0.06) var(--primary-c) var(--primary-h));
+  --sky: oklch(calc(var(--primary-l) + 0.12) var(--primary-c) var(--primary-h));
   --amber: oklch(0.82 0.12 72);
   --on-primary: oklch(0.16 0.02 245);
 

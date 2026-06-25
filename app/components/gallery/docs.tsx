@@ -11,6 +11,7 @@ import { Tooltip } from "../ui/Tooltip";
 import { Avatar } from "../ui/Avatar";
 import { Separator } from "../ui/Separator";
 import { Banner } from "../ui/Banner";
+import { Sheet } from "../ui/Sheet";
 import type { ApiRow } from "./ApiTable";
 
 export type DocSection = { id: string; title: string; preview: ReactNode; code: string };
@@ -373,6 +374,41 @@ export const docs: Record<string, DocEntry> = {
     accessibility: [
       "Renders with role=status so assistive tech announces the message politely.",
       "Conveys intent with text and border, not color alone.",
+    ],
+  },
+
+  sheet: {
+    importLine: `import { Sheet } from "~/components/ui/Sheet";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Sheet
+            side="right"
+            trigger={<Button>Open panel</Button>}
+            title="Panel"
+            description="Slides in from the right."
+          >
+            <p className="text-sm leading-relaxed text-muted">
+              The global theme Drawer is this same component with side=right.
+            </p>
+          </Sheet>
+        ),
+        code: `<Sheet\n  side="right"\n  trigger={<Button>Open panel</Button>}\n  title="Panel"\n>\n  ...\n</Sheet>`,
+      },
+    ],
+    api: [
+      { prop: "side", type: `"top" | "right" | "bottom" | "left"`, default: `"right"`, description: "Edge the panel slides from." },
+      { prop: "trigger", type: "ReactElement", description: "Element that opens the sheet (uncontrolled use)." },
+      { prop: "open", type: "boolean", description: "Controlled open state." },
+      { prop: "onOpenChange", type: "(open: boolean) => void", description: "Controlled open handler." },
+      { prop: "title", type: "ReactNode", description: "Panel title." },
+      { prop: "description", type: "ReactNode", description: "Optional supporting text." },
+    ],
+    accessibility: [
+      "Built on the Base UI Dialog primitive: focus trap, scroll lock, Escape to close, and aria wiring.",
+      "The global theme Drawer is this component with side=right.",
     ],
   },
 };

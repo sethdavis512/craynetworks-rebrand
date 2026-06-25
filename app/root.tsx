@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -5,27 +6,35 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteLoaderData,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { readTheme } from "./theme/theme-cookie.server";
+import { DEFAULT_THEME_STATE, type ThemeState } from "./theme/theme-state";
+import { ThemeProvider } from "./theme/ThemeProvider";
+import { ThemeDrawer } from "./components/controls/ThemeDrawer";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
+export function loader({ request }: Route.LoaderArgs) {
+  return { theme: readTheme(request) };
+}
+
+function channelStyle(theme: ThemeState): CSSProperties {
+  return {
+    "--primary-l": theme.accent.l,
+    "--primary-c": theme.accent.c,
+    "--primary-h": theme.accent.h,
+    "--radius-base": `${theme.radius}rem`,
+    "--spacing": `${theme.density}rem`,
+  } as CSSProperties;
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useRouteLoaderData<typeof loader>("root");
+  const theme = data?.theme ?? DEFAULT_THEME_STATE;
   return (
-    <html lang="en">
+    <html lang="en" className={theme.mode === "dark" ? "dark" : undefined} style={channelStyle(theme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,8 +50,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
-  return <Outlet />;
+export default function App({ loaderData }: Route.ComponentProps) {
+  return (
+    <ThemeProvider initialState={loaderData.theme}>
+      <Outlet />
+      <ThemeDrawer />
+    </ThemeProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -53,23 +67,21 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";
     details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+      error.status === 404 ? "The requested page could not be found." : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+    <main className="container mx-auto p-4 pt-16">
+      <h1 className="text-2xl font-semibold text-ink">{message}</h1>
+      <p className="mt-2 text-muted">{details}</p>
+      {stack ? (
+        <pre className="mt-4 w-full overflow-x-auto rounded-md border border-border bg-surface-2 p-4 font-mono text-sm">
           <code>{stack}</code>
         </pre>
-      )}
+      ) : null}
     </main>
   );
 }
