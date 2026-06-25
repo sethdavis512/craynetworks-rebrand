@@ -61,3 +61,13 @@ the status colors), so the docs cannot drift from what ships.
 that flexes the craft, not just a marketing page that consumes it.
 **Demonstrates:** Deep typographic control (genuine optical-size axis), and the token system made
 legible and inspectable.
+
+## Stage 11 - Before & after   (tag: stage-11-before-after)
+
+**Built:** `/admin/before-after`, a reveal-slider comparison. A faithful pastiche of the dated
+2003-era Cray site (cyan gradient, competing CTAs, gray stock-photo box, Google+ links) under a
+keyboard-operable clip slider against the token-driven rebrand, plus problem-to-fix callouts.
+**Why:** The transformation is the heart of the pitch and the material the enriched colophon will
+draw on: same business, same blue-and-white identity, finally systematized.
+**Demonstrates:** The thesis made visible, and honest framing (the before is reconstructed, not
+strawmanned).

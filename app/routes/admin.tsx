@@ -4,6 +4,7 @@ import { cn } from "../lib/cn";
 const adminNav = [
   { to: "/admin/components", label: "Components" },
   { to: "/admin/studio", label: "Studio" },
+  { to: "/admin/before-after", label: "Before & after" },
   { to: "/admin/colophon", label: "Colophon" },
 ];
 

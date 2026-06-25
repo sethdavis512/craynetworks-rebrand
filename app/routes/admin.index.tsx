@@ -16,6 +16,11 @@ const sections = [
     body: "The live typography lab and the OKLCH token system: the type and color craft, made interactive.",
   },
   {
+    to: "/admin/before-after",
+    title: "Before & after",
+    body: "The 2003-era Cray site against the rebrand, with a reveal slider and the reasons behind each change.",
+  },
+  {
     to: "/admin/colophon",
     title: "Colophon",
     body: "How this rebrand was built: the decisions, the system, and what each choice is meant to demonstrate.",
