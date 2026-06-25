@@ -13,7 +13,7 @@ import { SERVICES, VALUES, AREAS } from "../../data/marketing";
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /** Iridescent glow that rides the morphing --iris hue. */
-const glow: CSSProperties = { boxShadow: "0 0 50px -16px oklch(0.7 0.16 calc(258 + var(--iris)) / 0.5)" };
+const glow: CSSProperties = { boxShadow: "0 0 50px -16px oklch(0.7 0.16 calc(258 + var(--iris, 0deg)) / 0.5)" };
 
 function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   const reduced = useReducedMotion();
@@ -48,7 +48,7 @@ export function Home2056() {
       <main className="flex-1">
         {/* Hero */}
         <section className="relative isolate overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[min(46vw,34rem)] lg:block">
+          <div className="pointer-events-none absolute inset-0 -z-10 hidden lg:block">
             <OrbitalCore />
           </div>
           <motion.div

@@ -54,9 +54,11 @@ export function OrbitalCore() {
       ctx.clearRect(0, 0, w, h);
 
       const hue = 210 + Math.sin(t * 0.13) * 48;
-      const cx = w / 2 + pointer.x * 22;
-      const cy = h / 2 + pointer.y * 16;
-      const base = Math.min(w, h) * 0.5;
+      // Sit right-of-center (closer to center than before) and cap the size so the rings
+      // never run off the edge regardless of the hero's aspect ratio.
+      const cx = w * 0.7 + pointer.x * 22;
+      const cy = h * 0.52 + pointer.y * 16;
+      const base = Math.min(w * 0.24, h * 0.46);
       const tilt = 0.42 + pointer.y * 0.12; // orbital plane squash, responds to cursor
 
       const bloom = ctx.createRadialGradient(cx, cy, 0, cx, cy, base * 0.5);
