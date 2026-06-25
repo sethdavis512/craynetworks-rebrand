@@ -48,7 +48,7 @@ export function ThemeDrawer() {
   const tokensPanel = (
     <div className="space-y-5">
       <div>
-        <GroupLabel label="Mode" hint="Light or dark appearance." />
+        <GroupLabel label="Mode" hint="Light or dark appearance" />
         <div className="mt-2 flex gap-2">
           <Button size="sm" variant={state.mode === "light" ? "primary" : "outline"} onClick={() => update({ mode: "light" })}>
             Light
@@ -59,19 +59,19 @@ export function ThemeDrawer() {
         </div>
       </div>
 
-      <Field label="Accent hue" value={String(Math.round(state.accent.h))} hint="Where the brand color sits on the color wheel.">
+      <Field label="Accent hue" value={String(Math.round(state.accent.h))} hint="Where the brand color sits on the color wheel">
         <input type="range" min={0} max={360} step={1} value={state.accent.h} onChange={(e) => update({ accent: { h: Number(e.target.value) } })} className={rangeClass} />
       </Field>
-      <Field label="Accent chroma" value={state.accent.c.toFixed(3)} hint="How vivid or muted the brand color is.">
+      <Field label="Accent chroma" value={state.accent.c.toFixed(3)} hint="How vivid or muted the brand color is">
         <input type="range" min={0} max={0.3} step={0.005} value={state.accent.c} onChange={(e) => update({ accent: { c: Number(e.target.value) } })} className={rangeClass} />
       </Field>
-      <Field label="Accent lightness" value={state.accent.l.toFixed(2)} hint="How light or dark the brand color is.">
+      <Field label="Accent lightness" value={state.accent.l.toFixed(2)} hint="How light or dark the brand color is">
         <input type="range" min={0.3} max={0.85} step={0.01} value={state.accent.l} onChange={(e) => update({ accent: { l: Number(e.target.value) } })} className={rangeClass} />
       </Field>
-      <Field label="Radius" value={`${state.radius.toFixed(3)}rem`} hint="How rounded the corners are, from sharp to pill.">
+      <Field label="Radius" value={`${state.radius.toFixed(3)}rem`} hint="How rounded the corners are, from sharp to pill">
         <input type="range" min={0} max={1.5} step={0.025} value={state.radius} onChange={(e) => update({ radius: Number(e.target.value) })} className={rangeClass} />
       </Field>
-      <Field label="Density" value={`${state.density.toFixed(2)}rem`} hint="How tight or roomy the spacing is.">
+      <Field label="Density" value={`${state.density.toFixed(2)}rem`} hint="How tight or roomy the spacing is">
         <input type="range" min={0.18} max={0.34} step={0.01} value={state.density} onChange={(e) => update({ density: Number(e.target.value) })} className={rangeClass} />
       </Field>
     </div>
@@ -80,7 +80,7 @@ export function ThemeDrawer() {
   const typePanel = (
     <div className="space-y-5">
       <div>
-        <GroupLabel label="Body family" hint="The font used for paragraph text." />
+        <GroupLabel label="Body family" hint="The font used for paragraph text" />
         <div className="mt-2 flex gap-2">
           <Button size="sm" variant={state.type.family === "serif" ? "primary" : "outline"} onClick={() => update({ type: { family: "serif" } })}>
             Literata
@@ -91,16 +91,16 @@ export function ThemeDrawer() {
         </div>
       </div>
 
-      <Field label="Base size" value={`${Math.round(state.type.scale * 100)}%`} hint="Scales every bit of text up or down.">
+      <Field label="Base size" value={`${Math.round(state.type.scale * 100)}%`} hint="Scales every bit of text up or down">
         <input type="range" min={0.85} max={1.2} step={0.01} value={state.type.scale} onChange={(e) => update({ type: { scale: Number(e.target.value) } })} className={rangeClass} />
       </Field>
-      <Field label="Weight" value={String(state.type.weight)} hint="How thick the letter strokes are.">
+      <Field label="Weight" value={String(state.type.weight)} hint="How thick the letter strokes are">
         <input type="range" min={300} max={700} step={10} value={state.type.weight} onChange={(e) => update({ type: { weight: Number(e.target.value) } })} className={rangeClass} />
       </Field>
-      <Field label="Optical size" value={String(state.type.opsz)} hint="Tunes Literata's letterforms for small or large text.">
+      <Field label="Optical size" value={String(state.type.opsz)} hint="Tunes Literata's letterforms for small or large text">
         <input type="range" min={7} max={72} step={1} value={state.type.opsz} onChange={(e) => update({ type: { opsz: Number(e.target.value) } })} className={rangeClass} />
       </Field>
-      <Field label="Tracking" value={`${state.type.tracking.toFixed(3)}em`} hint="The space between letters.">
+      <Field label="Tracking" value={`${state.type.tracking.toFixed(3)}em`} hint="The space between letters">
         <input type="range" min={-0.05} max={0.08} step={0.005} value={state.type.tracking} onChange={(e) => update({ type: { tracking: Number(e.target.value) } })} className={rangeClass} />
       </Field>
     </div>
