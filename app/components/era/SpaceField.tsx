@@ -23,7 +23,6 @@ export function SpaceField() {
     let h = 0;
     let raf = 0;
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-    const stars = Array.from({ length: 130 }, () => ({ x: Math.random(), y: Math.random(), z: Math.random() }));
 
     const resize = () => {
       w = canvas.clientWidth;
@@ -70,17 +69,6 @@ export function SpaceField() {
         ctx.moveTo(0, yy);
         ctx.lineTo(w, yy);
         ctx.stroke();
-      }
-
-      for (const s of stars) {
-        const drift = reduced ? 0 : t * (0.02 + s.z * 0.05);
-        const sx = ((s.x + drift) % 1) * w + pointer.x * (10 + s.z * 30);
-        const sy = s.y * horizon + pointer.y * (8 + s.z * 24);
-        const r = 0.6 + s.z * 1.7;
-        ctx.fillStyle = `hsla(${hue + s.z * 50}, 85%, 82%, ${0.25 + s.z * 0.5})`;
-        ctx.beginPath();
-        ctx.arc(sx, sy, r, 0, Math.PI * 2);
-        ctx.fill();
       }
 
       if (!reduced) raf = requestAnimationFrame(draw);

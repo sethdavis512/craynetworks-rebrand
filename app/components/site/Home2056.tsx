@@ -5,7 +5,7 @@ import { buttonVariants } from "../ui/Button";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { ContactForm } from "./ContactForm";
-import { HoloMesh } from "./HoloMesh";
+import { OrbitalCore } from "./OrbitalCore";
 import { DecodeText } from "../era/DecodeText";
 import { useReducedMotion } from "../../lib/useReducedMotion";
 import { SERVICES, VALUES, AREAS } from "../../data/marketing";
@@ -48,8 +48,8 @@ export function Home2056() {
       <main className="flex-1">
         {/* Hero */}
         <section className="relative isolate overflow-hidden">
-          <div className="absolute inset-0 -z-10">
-            <HoloMesh />
+          <div className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[min(46vw,34rem)] lg:block">
+            <OrbitalCore />
           </div>
           <motion.div
             className="mx-auto max-w-5xl px-6 py-28 sm:py-36"
