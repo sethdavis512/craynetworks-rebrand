@@ -3,6 +3,7 @@ import { animate, motion, useInView, useMotionValue, useTransform } from "motion
 import { useReducedMotion } from "../lib/useReducedMotion";
 import { BeforeAfter } from "../components/showcase/BeforeAfter";
 import { Logo } from "../components/brand/Logo";
+import { LogoShowcase } from "../components/brand/LogoShowcase";
 import oldCraySrc from "../images/old-cray.png";
 import newCraySrc from "../images/new-cray.png";
 
@@ -185,6 +186,21 @@ export default function Colophon() {
             </Beat>
           ))}
         </div>
+      </section>
+
+      {/* The mark */}
+      <section className="mt-24">
+        <Beat>
+          <h2 className="text-3xl font-semibold tracking-tight text-ink">The mark</h2>
+          <p className="mt-2 max-w-2xl leading-relaxed text-muted">
+            The 2003 site set its name in flat text over a photo of the building. The rebrand replaces
+            that with a mark that means something. Hover to zoom toward a detail, and open the numbered
+            points for why each piece is there.
+          </p>
+        </Beat>
+        <Beat className="mt-8">
+          <LogoShowcase />
+        </Beat>
       </section>
 
       {/* The system, live */}
