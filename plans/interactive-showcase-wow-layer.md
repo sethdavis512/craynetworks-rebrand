@@ -25,7 +25,7 @@ Canonical tokens in `app/styles/app.css` (`@theme` / `:root` / `.dark`) are the 
 1. **`ThemeProvider` (React Context)** holds working override state: mode, accent hue/chroma/lightness, base radius, density, font pairing, type-scale ratio, variable-font axes.
 2. **Apply via inline CSS variables on the root element** (`document.documentElement.style.setProperty('--accent-h', …)`). Inline styles outrank `:root`, so the whole UI re-themes instantly and **consumers never re-render** — they just read CSS vars. This is what makes it feel like Storybook controls.
 3. **OKLCH ramp math runs in JS** from hue/chroma/lightness inputs and emits override values; zero file changes.
-4. **Persistence via cookie, read in the RR7 root loader** → correct theme injected as inline style **server-side, no FOUC**, survives reload, link-shareable.
+4. **Persistence via cookie, read in the RR8 root loader** → correct theme injected as inline style **server-side, no FOUC**, survives reload, link-shareable.
 5. **Reset to defaults** clears the override layer, revealing the canonical system underneath (a deliberate proof point).
 
 ## Control taxonomy — the systems-expertise flex

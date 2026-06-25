@@ -51,13 +51,13 @@ Stage numbers mirror the master build order. Tag each on completion with an anno
 
 | Tag | Stage | Demonstrates |
 |---|---|---|
-| `stage-01-scaffold` | RR7 (fs-routes, SSR) + Bun + Vite + Tailwind v4 + Base UI; git; Node prod target | Modern full-stack setup |
+| `stage-01-scaffold` | RR8 (fs-routes, SSR) + Bun + Vite + Tailwind v4 + Base UI; git; Node prod target | Modern full-stack setup |
 | `stage-02-tokens` | OKLCH channel token contract (`tokens.ts` + `app.css` + `@theme inline`); fonts | Token-system architecture |
 | `stage-03-theming-engine` | `ThemeProvider`, `oklch.ts`, `theme-state.ts`, cookie loader, SSR injection, reset | Live theming without re-render |
 | `stage-04-impeccable` | `impeccable install` + `init` + `document --seed`; PRODUCT.md/DESIGN.md | Design rigor as process |
 | `stage-05-sheet` | Direction-aware `<Sheet>` (Base UI); Drawer = `Sheet side="right"` | Accessible primitives |
 | `stage-06-components` | ~24-component library + gallery; inline controls wired to tokens | Dogfooded design system |
-| `stage-07-forms` | Mock backend (seeded), contact action/form, fetchers, deferred-loader demo | Full-stack RR7 + state matrix |
+| `stage-07-forms` | Mock backend (seeded), contact action/form, fetchers, deferred-loader demo | Full-stack RR8 + state matrix |
 | `stage-08-system-playground` | OKLCH color lab, type lab, foundations, `/playground` | Typography + token showmanship |
 | `stage-09-marketing` | Marketing `/` with Motion scroll reveals | Brand + restraint |
 | `stage-10-explore` | `/explore` infinite canvas (custom camera) + a11y fallback | Dynamic interaction craft |

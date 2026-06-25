@@ -1,10 +1,10 @@
 # Simulated Data & Dynamic Interactions
 
-> Companion to `cray-networks-rebrand.md`, `interactive-showcase-wow-layer.md`, and `impeccable-integration.md`. This file covers two additions that make the rebranded site feel like a real, living product: (1) a fully simulated RR7 data/form experience, and (2) dynamic-movement interfaces (infinite canvas + direction-aware sliding panels). Reference for the motion patterns: `/Users/seth/repositories/layout-gallery`.
+> Companion to `cray-networks-rebrand.md`, `interactive-showcase-wow-layer.md`, and `impeccable-integration.md`. This file covers two additions that make the rebranded site feel like a real, living product: (1) a fully simulated RR8 data/form experience, and (2) dynamic-movement interfaces (infinite canvas + direction-aware sliding panels). Reference for the motion patterns: `/Users/seth/repositories/layout-gallery`.
 
 ## Context
 
-A design-heavy hiring manager will poke at the site, not just scroll it. Two things prove range beyond static design: realistic full-stack interaction (loaders, actions, pending UI, error handling, all RR7 framework-mode), and spatial/dynamic UI (a pannable/zoomable canvas, panels that slide from any edge). The infinite canvas doubles as the "what Cray Networks is about" exploration. `layout-gallery` proves these interactions need **no animation library** — camera math + CSS transforms + pointer events — which is itself the flex.
+A design-heavy hiring manager will poke at the site, not just scroll it. Two things prove range beyond static design: realistic full-stack interaction (loaders, actions, pending UI, error handling, all RR8 framework-mode), and spatial/dynamic UI (a pannable/zoomable canvas, panels that slide from any edge). The infinite canvas doubles as the "what Cray Networks is about" exploration. `layout-gallery` proves these interactions need **no animation library** — camera math + CSS transforms + pointer events — which is itself the flex.
 
 ## Locked Decisions
 
@@ -17,7 +17,7 @@ A design-heavy hiring manager will poke at the site, not just scroll it. Two thi
 
 ---
 
-## Part 1 — Simulated data & form experience (RR7 framework mode)
+## Part 1 — Simulated data & form experience (RR8 framework mode)
 
 ### Mock backend
 

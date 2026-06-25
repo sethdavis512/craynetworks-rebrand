@@ -10,7 +10,7 @@ There is no code yet. The single source of truth is the planning set in `plans/`
 - `plans/cray-networks-rebrand.md` — base rebrand: brand identity, ~24-component Base UI library, marketing page, before/after.
 - `plans/interactive-showcase-wow-layer.md` — live theming engine, global Drawer vs inline controls, OKLCH color lab, type lab, `/colophon`.
 - `plans/impeccable-integration.md` — Impeccable setup, per-surface quality gates, PRODUCT.md/DESIGN.md as evidence.
-- `plans/simulated-data-and-dynamic-interactions.md` — simulated RR7 data/forms, `/explore` infinite canvas, direction-aware `<Sheet>`.
+- `plans/simulated-data-and-dynamic-interactions.md` — simulated RR8 data/forms, `/explore` infinite canvas, direction-aware `<Sheet>`.
 - `plans/brand-direction.md` — signed-off brand: refined Cray blue/white in OKLCH, amber pop, Hanken Grotesk x Inter.
 - `plans/commit-strategy.md` — layer-by-layer commit convention, stage tags, and the `BUILDLOG.md` narrative.
 
@@ -20,7 +20,7 @@ A rebrand of a **real** business, [Cray Networks](https://www.craynetworks.com/)
 
 ## Stack & runtime
 
-React Router 7 (framework mode, **SSR**, `@react-router/fs-routes` flat convention) · Vite · Tailwind v4 · Base UI · Motion · OKLCH design tokens · Impeccable (design tooling) · Railway (deploy).
+React Router 8 (framework mode, **SSR**, `@react-router/fs-routes` flat convention) · Vite · Tailwind v4 · Base UI · Motion · OKLCH design tokens · Impeccable (design tooling) · Railway (deploy).
 
 - **Bun** for install, dev, build, scripts, and tooling.
 - **Node + `react-router-serve`** for the production SSR server (avoids the known Bun + react-router-serve crash). The app is SSR, not static, because the theme cookie loader, form actions, and deferred loaders need a server.
@@ -32,7 +32,7 @@ These activate once the project is scaffolded (no `package.json` exists yet):
 - `bun install` — install deps
 - `bun dev` — dev server (also what Impeccable `live` mode and `/run` drive)
 - `bun run build` — production build; prod server runs on Node via `react-router-serve`
-- RR7 typegen runs via build/dev; route types come from `./+types/<route>`
+- RR8 typegen runs via build/dev; route types come from `./+types/<route>`
 - Tests: vitest, co-located (`*.test.ts(x)`); single file via `bun run test <path>`. Prioritize the pure functions: OKLCH ramp/contrast (`oklch.ts`), theme (de)serialize (`theme-state.ts`), `screenToCanvas`, Zod schemas.
 
 ## Core architecture (the parts that span files)

@@ -29,12 +29,12 @@ This repo is a job application for a **design-heavy hiring manager**. Impeccable
 - **PRODUCT.md** is largely pre-decided: warm/human/trustworthy personality, Cray's Central-TX SMB + residential audience, the invite-don't-scold voice, and the design principles (consistency via tokens, accessibility engineered not hoped-for, motion with restraint).
 - **DESIGN.md** maps directly onto our OKLCH token tiers, the type system, and the ~24-component library — it becomes the human-readable spec mirroring `app/styles/app.css` + `theme/tokens.ts`.
 - **`audit`** enforces exactly the "design-heavy reviewer" bar (typography, color/contrast, layout, a11y, perf).
-- **`live`** mode pairs with our RR7 dev server for browser iteration on the marketing page and before/after reveal.
+- **`live`** mode pairs with our RR8 dev server for browser iteration on the marketing page and before/after reveal.
 - **`extract`** reinforces the primitive → semantic → component token architecture that the OKLCH lab visualizes.
 
 ## Setup sequence (front-loaded, before feature work)
 
-1. Scaffold the RR7 + Bun + Tailwind v4 project (per base plan) so there's a tree to configure.
+1. Scaffold the RR8 + Bun + Tailwind v4 project (per base plan) so there's a tree to configure.
 2. `npx impeccable install` from repo root.
 3. `/impeccable init` → generate `PRODUCT.md`, `DESIGN.md`, `.impeccable/live/config.json`. Review and edit PRODUCT.md to encode the brand decisions and the hiring-manager goal.
 4. `/impeccable document --seed` (fresh repo) to scaffold DESIGN.md by Q&A; capture our decided tokens/type/components.

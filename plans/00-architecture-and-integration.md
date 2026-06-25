@@ -72,7 +72,7 @@ Rules this enforces:
 
 ## Master build order (supersedes per-plan orders)
 
-1. **Scaffold**: RR7 (fs-routes, SSR) + Bun + Vite + Tailwind v4 + Base UI; `git init`; Node prod-server target; verify Base UI package/API via context7.
+1. **Scaffold**: RR8 (fs-routes, SSR) + Bun + Vite + Tailwind v4 + Base UI; `git init`; Node prod-server target; verify Base UI package/API via context7.
 2. **Token contract**: `tokens.ts` + `app.css` channels + `@theme inline`; variable fonts self-hosted; light/dark.
 3. **Theming engine**: `ThemeProvider`, `oklch.ts` (ramp + contrast, pure), `theme-state.ts` (serialize, pure), `theme-cookie.server.ts`, root-loader SSR injection, reset.
 4. **Impeccable init**: `npx impeccable install` + `/impeccable init` + `document --seed` (PRODUCT.md from locked brand). Re-run `document` after tokens are real.

@@ -19,7 +19,7 @@ Light and dark mode are first-class throughout.
 | Decision | Choice |
 |---|---|
 | Subject | Cray Networks (real IT shop, name kept, identity evolved) |
-| Framework | React Router 7 (framework mode), Bun, Vite |
+| Framework | React Router 8 (framework mode), Bun, Vite |
 | Styling | Tailwind v4, `@theme` tokens, OKLCH only, `.dark` scope, semantic tokens |
 | Components | Base UI primitives, 20+ comprehensive library, dogfooded into the pages |
 | Brand direction | Warm, human, trustworthy (break from corporate-blue cliche) |
@@ -44,7 +44,7 @@ Documented with rationale on the `/system` pages. Starting proposal, adjustable:
 
 ## Tech & Conventions
 
-- Load the `/react-router-framework-mode` skill before any route work (source of truth for RR7 patterns). Routes import types from `./+types/<route>`; validate any search params with Zod.
+- Load the `/react-router-framework-mode` skill before any route work (source of truth for RR8 patterns). Routes import types from `./+types/<route>`; validate any search params with Zod.
 - Verify the Base UI package name and current component API via **context7** before building (namespace subpath imports, e.g. `import { Dialog } from '<pkg>/dialog'` then `Dialog.Root`, etc.). Use plain elements only where Base UI has no primitive (Button, Card, Badge, Table).
 - Follow Seth's component-library conventions: CVA variants exported alongside components, `cn()` for class merging, `data-[disabled]` / `hover:not-data-disabled` modifiers (Base UI sets data attributes, not `:disabled`), `bg-surface` not `bg-white`, `forwardRef` only when DOM ref is needed.
 - Bun for everything (`bun install`, `bun dev`). Add `@types/bun` if any scripts are written.
@@ -80,7 +80,17 @@ app/
 - **Data display:** Card, Badge, Avatar, Table, Separator, Progress
 - **Feedback:** Alert, Skeleton
 
-Each appears in the gallery with: live interactive demo, variant matrix (size/intent/state), light+dark rendering, a props table, and a copyable usage snippet. The marketing, system, and before/after pages are built **from these same components** to prove they're real and flexible.
+The marketing, system, and before/after pages are built **from these same components** to prove they're real and flexible.
+
+### Gallery presentation (Kumo-style, per kumo-ui.com)
+
+Follow Cloudflare Kumo's component-docs pattern:
+
+- **Three-column docs layout:** left sidebar with the full component list (grouped) · center content · right-rail in-page table of contents. (We already build a `Sidebar` and a TOC, so this is dogfooded.)
+- **Per-component page section order** (`/components/$slug`), each section an anchor for the right rail: **Title + one-line description → Installation/Import → Usage (basic) → Variants → Examples (composed) → API Reference → Accessibility**.
+- **Preview presentation:** a live, interactive preview pane with the **code shown directly beneath it** (not a Preview/Code tab toggle), and every code block has a **copy button**.
+- **API Reference** is a clean table with columns **Prop · Type · Default · Description**.
+- **Our additions on top of Kumo:** inline controls on the preview (the component's own props, per the control taxonomy), and light + dark rendering that also responds to the global Drawer. This is where we go beyond static docs into the live-theming wow.
 
 ## Marketing Page Sections (`/`)
 
@@ -96,7 +106,7 @@ Faithfully reconstruct the real Cray homepage hero, services section, and contac
 
 ## Build Sequence
 
-1. Scaffold RR7 + Bun + Tailwind v4 + Base UI; wire theme provider and `.dark` toggle; load RR7 skill.
+1. Scaffold RR8 + Bun + Tailwind v4 + Base UI; wire theme provider and `.dark` toggle; load RR8 skill.
 2. Define OKLCH token layer in `app.css` `@theme` (light + dark); set up fonts.
 3. Build `<Logo />` and core primitives (Button, Card, Input, Badge) first; verify Base UI API via context7.
 4. Build out the full ~24-component library + gallery registry.

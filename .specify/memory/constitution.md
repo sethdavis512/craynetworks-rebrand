@@ -1,5 +1,9 @@
 <!--
 SYNC IMPACT REPORT
+Version change (1.1.1): PATCH. Factual correction: the scaffold installs React Router 8.0.0,
+so "React Router 7" wording was updated to "React Router 8" throughout. No principle or
+governance changes.
+
 Version change: 1.0.0 -> 1.1.0
 Bump rationale (1.1.0): MINOR. Added governance guidance naming git history as a deliverable
 (atomic layer-by-layer commits, per-stage tags, BUILDLOG.md) under Development Workflow & Quality
@@ -105,7 +109,7 @@ asserted.
 
 ### VI. Deterministic, Honest Simulation
 
-The application is server-rendered (SSR). Routes MUST follow React Router 7 framework-mode
+The application is server-rendered (SSR). Routes MUST follow React Router 8 framework-mode
 conventions: loaders and actions for data and mutations, types imported from `./+types/<route>`,
 search and `?theme=` params validated with Zod, and server or sensitive logic confined to
 `*.server.ts`. Simulated data and simulated failures MUST be off by default and MUST be
@@ -128,7 +132,7 @@ system testable and reinforces Principle VI.
 
 ## Technology & Architecture Constraints
 
-- Stack: React Router 7 (framework mode, SSR, `@react-router/fs-routes` flat convention), Vite,
+- Stack: React Router 8 (framework mode, SSR, `@react-router/fs-routes` flat convention), Vite,
   Tailwind v4, Base UI, Motion, OKLCH design tokens, Impeccable design tooling, Railway deploy.
 - Runtime: Bun for install, dev, build, scripts, and tooling; Node with `react-router-serve` for
   the production SSR server (avoids the known Bun + react-router-serve crash).
@@ -175,4 +179,4 @@ Phase 0 research and be re-checked after Phase 1 design. Any deviation MUST be j
 plan's Complexity Tracking section or the surface MUST be brought into compliance. Use `CLAUDE.md`
 for day-to-day runtime development guidance.
 
-**Version**: 1.1.0 | **Ratified**: 2026-06-24 | **Last Amended**: 2026-06-24
+**Version**: 1.1.1 | **Ratified**: 2026-06-24 | **Last Amended**: 2026-06-24
