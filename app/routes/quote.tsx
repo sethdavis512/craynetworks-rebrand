@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { Await } from "react-router";
+import type { Route } from "./+types/quote";
 import { SiteHeader } from "../components/site/SiteHeader";
 import { SiteFooter } from "../components/site/SiteFooter";
 import { ContactForm } from "../components/site/ContactForm";
 import { AnimatedNumber } from "../components/site/AnimatedNumber";
 import { Switch } from "../components/ui/Switch";
 import { SERVICES, getServiceConfig, computeEstimate, type ServiceId } from "../lib/estimate";
+import { seededUnit, simulatedLatency, sleep } from "../mock/simulate.server";
 
 export function meta() {
   return [
     { title: "Estimate your plan — Cray Networks" },
     { name: "description", content: "Estimate the cost of IT support, repair, hosting, or web work." },
   ];
+}
+
+export async function loader() {
+  // RR8 deferred data: stream a simulated "quotes sent this week" stat in after a fake latency.
+  const quotesThisWeek = sleep(simulatedLatency("quotes-week", 400, 1100)).then(() =>
+    Math.round(35 + seededUnit("quotes-week") * 24),
+  );
+  return { quotesThisWeek };
 }
 
 function ToggleRow({ label, checked, onChange }: { label: string; checked: boolean; onChange: (b: boolean) => void }) {
@@ -22,7 +33,7 @@ function ToggleRow({ label, checked, onChange }: { label: string; checked: boole
   );
 }
 
-export default function Quote() {
+export default function Quote({ loaderData }: Route.ComponentProps) {
   const [service, setService] = useState<ServiceId>("managed-it");
   const [qty, setQty] = useState(5);
   const [onsite, setOnsite] = useState(false);
@@ -95,6 +106,14 @@ export default function Quote() {
               </div>
               <p className="mt-3 text-sm leading-relaxed text-muted">
                 A ballpark for {q} {config.unit}. Estimates only; your real quote is free.
+              </p>
+              <p className="mt-4 border-t border-border pt-3 font-mono text-xs text-muted">
+                <Suspense fallback={<span className="opacity-60">syncing live ops...</span>}>
+                  <Await resolve={loaderData.quotesThisWeek}>
+                    {(n) => <span className="text-primary-strong">{n}</span>}
+                  </Await>
+                </Suspense>{" "}
+                quotes sent this week
               </p>
             </div>
           </aside>

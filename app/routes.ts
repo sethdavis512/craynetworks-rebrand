@@ -7,6 +7,7 @@ export default [
     route(":slug", "routes/services.detail.tsx"),
   ]),
   route("quote", "routes/quote.tsx"),
+  route("contact", "routes/contact.tsx"),
   route("admin", "routes/admin.tsx", [
     index("routes/admin.index.tsx"),
     route("components", "routes/components.tsx", [
