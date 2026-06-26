@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-26T00:00:00Z",
+  "title": "Design System: Cray Networks",
+  "extensions": {
+    "colorMeta": {
+      "cray-blue": {
+        "role": "primary",
+        "displayName": "Cray Blue",
+        "canonical": "oklch(0.58 0.11 232)",
+        "tonalRamp": [
+          "oklch(0.2 0.07 232)",
+          "oklch(0.3 0.09 232)",
+          "oklch(0.4 0.1 232)",
+          "oklch(0.5 0.11 232)",
+          "oklch(0.58 0.11 232)",
+          "oklch(0.7 0.1 232)",
+          "oklch(0.82 0.07 232)",
+          "oklch(0.93 0.03 232)"
+        ]
+      },
+      "navy": {
+        "role": "secondary",
+        "displayName": "Navy",
+        "canonical": "oklch(0.34 0.065 242)",
+        "tonalRamp": [
+          "oklch(0.18 0.04 242)",
+          "oklch(0.26 0.055 242)",
+          "oklch(0.34 0.065 242)",
+          "oklch(0.45 0.07 242)",
+          "oklch(0.56 0.07 242)",
+          "oklch(0.68 0.06 242)",
+          "oklch(0.82 0.04 242)",
+          "oklch(0.93 0.02 242)"
+        ]
+      },
+      "amber": {
+        "role": "tertiary",
+        "displayName": "Amber Pop",
+        "canonical": "oklch(0.8 0.12 72)",
+        "tonalRamp": [
+          "oklch(0.3 0.06 72)",
+          "oklch(0.42 0.08 72)",
+          "oklch(0.54 0.1 72)",
+          "oklch(0.66 0.12 72)",
+          "oklch(0.8 0.12 72)",
+          "oklch(0.87 0.09 72)",
+          "oklch(0.93 0.06 72)",
+          "oklch(0.97 0.03 72)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Navy Ink",
+        "canonical": "oklch(0.25 0.02 245)",
+        "tonalRamp": [
+          "oklch(0.19 0.02 245)",
+          "oklch(0.25 0.02 245)",
+          "oklch(0.36 0.02 245)",
+          "oklch(0.52 0.02 245)",
+          "oklch(0.7 0.014 240)",
+          "oklch(0.84 0.01 240)",
+          "oklch(0.91 0.008 240)",
+          "oklch(0.99 0.004 240)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only; Hanken Grotesk at the clamp ceiling." },
+      "body": { "displayName": "Body", "purpose": "Reading copy in Literata, capped at 65-75ch." }
+    },
+    "shadows": [
+      { "name": "overlay", "value": "0 10px 30px -10px oklch(0.15 0.02 245 / 0.35)", "purpose": "Floating surfaces only: dialog, sheet, popover, menu, the control pills." },
+      { "name": "accent-glow", "value": "0 0 50px -16px oklch(0.7 0.16 258 / 0.5)", "purpose": "Hero CTA and 2056-mode surfaces; a glow, not a drop shadow." }
+    ],
+    "motion": [
+      { "name": "ease-out-quint", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "The standard easing for reveals, presses, and transitions." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main call to action; Cray Blue fill with near-white label.",
+      "html": "<button class=\"ds-btn-primary\">Request a quote</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 3rem; padding: 0 1.5rem; border: none; border-radius: 0.625rem; background: oklch(0.58 0.11 232); color: oklch(0.99 0.004 240); font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-weight: 500; font-size: 1rem; cursor: pointer; transition: background-color 0.2s, transform 0.2s; } .ds-btn-primary:hover { background: oklch(0.52 0.11 232); } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid oklch(0.58 0.11 232); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action; bordered and transparent with ink text.",
+      "html": "<button class=\"ds-btn-outline\">See what we do</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; height: 3rem; padding: 0 1.5rem; border: 1px solid oklch(0.91 0.008 240); border-radius: 0.625rem; background: transparent; color: oklch(0.25 0.02 245); font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-weight: 500; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; } .ds-btn-outline:hover { background: oklch(0.975 0.005 240); } .ds-btn-outline:focus-visible { outline: 2px solid oklch(0.58 0.11 232); outline-offset: 2px; }"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Single-line text field; hairline border, surface fill, focus-ring on focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"you@business.com\" />",
+      "css": ".ds-input { width: 100%; height: 2.5rem; padding: 0 0.75rem; border: 1px solid oklch(0.91 0.008 240); border-radius: 0.625rem; background: oklch(0.99 0.004 240); color: oklch(0.25 0.02 245); font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 0.875rem; outline: none; } .ds-input::placeholder { color: oklch(0.52 0.02 245); } .ds-input:focus-visible { outline: 2px solid oklch(0.58 0.11 232); outline-offset: 2px; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat surface container; border and tone separate it, no resting shadow.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Network management</h3><p class=\"ds-card-body\">Proactive monitoring and maintenance, so problems get fixed before you notice them.</p></div>",
+      "css": ".ds-card { border: 1px solid oklch(0.91 0.008 240); border-radius: 1rem; background: oklch(0.975 0.005 240); padding: 1.5rem; transition: transform 0.2s, border-color 0.2s; } .ds-card:hover { transform: translateY(-2px); border-color: oklch(0.58 0.11 232 / 0.4); } .ds-card-title { margin: 0; font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-weight: 600; font-size: 1.125rem; color: oklch(0.25 0.02 245); } .ds-card-body { margin: 0.5rem 0 0; font-family: 'Literata Variable', Georgia, serif; font-size: 1rem; line-height: 1.6; color: oklch(0.52 0.02 245); }"
+    },
+    {
+      "name": "Primary Badge",
+      "kind": "chip",
+      "refersTo": "badge-primary",
+      "description": "Soft-tinted pill; the strong blue text tier keeps colored text >= 4.5:1.",
+      "html": "<span class=\"ds-badge\">Most popular</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; border-radius: 1.5rem; padding: 0.125rem 0.625rem; background: oklch(0.58 0.11 232 / 0.1); color: oklch(0.46 0.11 232); font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-weight: 500; font-size: 0.8125rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Neighborly Utility",
+    "overview": "Cray Networks is the local IT expert who treats you like a neighbor: warm and plain-spoken, yet engineered with the precision of serious tooling. The system reads as dependable infrastructure with a human face, built on continuity, the real Cray blue-and-white identity finally systematized in OKLCH with a first-class dark mode. Typography carries the brand: a Hanken Grotesk display against a Literata reading face. The medium is the proof; the token system, instant live theming, and accessibility are demonstrated, not claimed.",
+    "keyCharacteristics": [
+      "Warm but precise: neighborly voice, Linear-grade restraint and taut spacing.",
+      "Typography-forward: a genuine serif/sans pairing on real variable-font axes.",
+      "OKLCH-native: every color is a composable channel, so the whole UI re-themes live.",
+      "Continuity over reinvention: enhance the real Cray blue-and-white, do not replace it.",
+      "Accessibility engineered: AA verified with APCA, light and dark, reduced-motion honored."
+    ],
+    "rules": [
+      { "name": "The One Amber Rule", "body": "Amber appears on at most ~5% of any screen. Its rarity is the point; it is never a second brand color.", "section": "colors" },
+      { "name": "The Continuity Rule", "body": "The blue is Cray's existing blue, refined, not replaced. Warmth comes from amber, typography, and copy, never a new hue family.", "section": "colors" },
+      { "name": "The Serif-Reads Rule", "body": "Reading and reassurance copy is set in Literata, never the sans. The serif is the warmth signal.", "section": "typography" },
+      { "name": "The Flat-At-Rest Rule", "body": "Cards and panels are flat; they separate by border and surface tone. A shadow means the element floats above the page.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do author every color in OKLCH as composable channels; keep light and dark on the same channel.",
+      "Do set reading copy in Literata and UI/labels in Hanken Grotesk; cap body measure at 65-75ch.",
+      "Do verify contrast (AA, APCA) in both themes; use the *-strong text tiers for colored text on light tints.",
+      "Do keep amber to ~5% of a screen.",
+      "Do ship light and dark and honor prefers-reduced-motion on every animation."
+    ],
+    "donts": [
+      "Don't use stock data-center photos, clip-art icons, or corporate gradient blues.",
+      "Don't fall back to the corporate-blue SaaS / bootstrap template look.",
+      "Don't ship AI-slop tells: cream/sand backgrounds, per-section uppercase eyebrows, 01/02/03 markers, identical card grids, gradient text.",
+      "Don't drift toward cold enterprise-dashboard sterility; warmth is mandatory.",
+      "Don't add a colored border-left/right stripe, a resting card drop-shadow, or a second brand hue."
+    ]
+  }
+}

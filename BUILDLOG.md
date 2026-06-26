@@ -137,4 +137,4 @@ content, different world; all reduced-motion safe and SSR-safe.
 The `/explore` infinite canvas (stage 10) and a dedicated `/playground` matrix were not built.
 Impeccable produced `PRODUCT.md` but `DESIGN.md` and the live config were not generated (stage 04 was
 integration, not a formal staged build). A final one-time audit gate (stage 13) is ongoing rather than
-a single pass. Routing is config-based in `app/routes.ts`, not the planned fs-routes flat convention.
+a single pass. Routing is intentionally config-based in `app/routes.ts` (the chosen convention, not the plan's fs-routes flat naming).
