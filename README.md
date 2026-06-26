@@ -17,14 +17,20 @@ you can drive yourself.
   an `.era-2056` class skin: morphing OKLCH colors, Space Grotesk + mono (lazy-loaded), a persistent
   HUD shell, a Cmd-K command palette, cross-route view transitions, a boot sequence, and a Canvas
   grid + orbital-core hero. Same content, different world. All of it is reduced-motion safe.
-- **~13-component Base UI library**, dogfooded into every page and browsable at `/admin/components`.
+- **26-component Base UI library**, dogfooded into every page and browsable at `/admin/components`
+  (live previews, API tables, and a11y notes each).
+- **Color lab + type lab** at `/admin/studio`: a live OKLCH ramp, a primitive → semantic → consumer
+  token cascade, and WCAG/APCA contrast readouts that update as you theme, plus a variable-font type lab.
+- **Real RR8 data + forms.** The contact form posts to a `/contact` server action (Zod validation,
+  pending and error states) with an opt-in, *seeded* ~25% failure for demoing the unhappy path; the
+  quote route streams a deferred stat via `Suspense`/`Await`.
 - **`/admin/behind-the-rebrand`** — a scroll-driven case study (before/after reveal, interactive
   logo anatomy, the decisions and why, a build-stage timeline).
 
 ## Stack
 
-React Router 8 (framework mode, **SSR**) · Vite · Tailwind v4 · Base UI · Motion · D3
-(`d3-force`/`d3-delaunay`) · OKLCH design tokens · Impeccable (design tooling). **Bun** for
+React Router 8 (framework mode, **SSR**) · Vite · Tailwind v4 · Base UI · Motion · D3 (`d3-force`) ·
+Canvas 2D · Zod · OKLCH design tokens · Impeccable (design tooling). **Bun** for
 install/dev/build/scripts; **Node** runs the production SSR server (`react-router-serve`).
 
 ## Commands
@@ -47,5 +53,6 @@ stay compatible. The builder is pinned to `DOCKERFILE` via `railway.json`.
 
 ## Repository
 
-See `CLAUDE.md` for architecture and conventions, `plans/` for the planning set, and `BUILDLOG.md`
-for the stage-by-stage build narrative. The git history is intentionally part of the work.
+See `CLAUDE.md` for architecture and conventions, `DESIGN.md` (visual system) and `PRODUCT.md`
+(strategy) for the design documentation, `plans/` for the planning set, and `BUILDLOG.md` for the
+stage-by-stage build narrative (tagged `stage-NN`). The git history is intentionally part of the work.

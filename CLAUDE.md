@@ -22,7 +22,7 @@ A rebrand of a **real** business, [Cray Networks](https://www.craynetworks.com/)
 
 ## Stack & runtime
 
-React Router 8 (framework mode, **SSR**, `@react-router/fs-routes` flat convention) · Vite · Tailwind v4 · Base UI · Motion · OKLCH design tokens · Impeccable (design tooling) · Railway (deploy).
+React Router 8 (framework mode, **SSR**, config routes in `app/routes.ts`) · Vite · Tailwind v4 · Base UI · Motion · D3 (`d3-force`) · Canvas 2D · Zod · OKLCH design tokens · Impeccable (design tooling) · Railway (deploy).
 
 - **Bun** for install, dev, build, scripts, and tooling.
 - **Node + `react-router-serve`** for the production SSR server (avoids the known Bun + react-router-serve crash). The app is SSR, not static, because the theme cookie loader, form actions, and deferred loaders need a server.
@@ -33,13 +33,13 @@ React Router 8 (framework mode, **SSR**, `@react-router/fs-routes` flat conventi
 - `bun dev` — dev server (also what Impeccable `live` mode and `/run` drive)
 - `bun run build` — production build; prod server runs on Node via `react-router-serve`
 - RR8 typegen runs via build/dev; route types come from `./+types/<route>`
-- Tests: vitest, co-located (`*.test.ts(x)`); single file via `bun run test <path>`. Prioritize the pure functions: OKLCH ramp/contrast (`oklch.ts`), theme (de)serialize (`theme-state.ts`), `screenToCanvas`, Zod schemas.
+- Tests: vitest, co-located (`*.test.ts(x)`); single file via `bun run test <path>`. The pure functions carry the suite: OKLCH ramp/contrast/APCA (`oklch.ts`), theme (de)serialize (`theme-state.ts`), and the seeded simulation (`mock/simulate.server.ts`).
 
 ## Core architecture (the parts that span files)
 
 **The token contract is the linchpin — read `00-architecture` before touching tokens.**
 
-- `app/theme/tokens.ts` is the **canonical** typed token model (primitive OKLCH channels → semantic → component tiers). `app/styles/app.css` declares them as CSS vars; `/system` docs import `tokens.ts` directly so docs cannot drift; `DESIGN.md` is derived.
+- `app/theme/tokens.ts` is the **canonical** typed token model (primitive OKLCH channels → semantic → component tiers). `app/app.css` declares them as CSS vars; `/admin/studio` (the color lab) reads them live so docs cannot drift; `DESIGN.md` + the `.impeccable/design.json` sidecar are derived from it.
 - Tokens are authored as **composable OKLCH channels** (`--accent-l/c/h`, `--radius-base`, `--spacing`) and exposed via **`@theme inline`** so Tailwind utilities emit `var()` references and stay override-able. Plain `@theme` would bake literals and break live theming.
 - **Live theming engine**: `app/theme/ThemeProvider.tsx` holds a runtime override layer (mode, accent l/c/h, radius-base, density, font pairing, type ratio, variable-font axes) and applies it as **inline CSS vars on `<html>`** (`document.documentElement.style.setProperty`). Inline styles outrank `:root`, so the whole UI re-themes instantly and **token consumers do not re-render** — they only read CSS vars. Never route token values through React state into component props.
 - **Persistence**: a versioned `ThemeState` (`app/theme/theme-state.ts`, pure) stored in a cookie read by the **root loader** (`theme-cookie.server.ts`) and injected as inline style at SSR for no FOUC; optional `?theme=` (Zod-validated). Reset clears the override layer.
@@ -50,13 +50,17 @@ React Router 8 (framework mode, **SSR**, `@react-router/fs-routes` flat conventi
 - Inline controls = a single component's own props (variant, tone, radius), scoped and non-leaking.
 - Dual-altitude controls are deliberate: inline radius = `calc(var(--radius-base) * k)`; inline intent picks which semantic var a component points at. Global change shifts inline. `--radius-base` and channels must exist before any component is built.
 
-**Component library** (`app/components/ui/`): Base UI primitives where they exist; plain elements only where Base UI has none (Button, Card, Badge, Table). Dogfooded into every page.
+**Component library** (`app/components/ui/`): 26 components, Base UI primitives where they exist, plain elements only where Base UI has none (Button, Card, Badge, Table, Breadcrumbs, Skeleton). Dogfooded into every page and browsable at `/admin/components`; each is registered in `gallery/registry.ts` + `gallery/docs.tsx` (adding a component means updating both, or the detail page crashes on a missing `docs[slug]`).
 
-**Animation policy** (three systems, kept in lanes): Motion = scroll-reveal / page-level only; Base UI `data-state` + CSS transforms = `<Sheet>` (no Motion spring); custom pointer+transform = `/explore` canvas. One shared `useReducedMotion` consumed by all three.
+**Data & forms** (RR8 full-stack): the `/contact` resource route (`routes/contact.tsx`) runs a Zod-validated server `action` consumed by `ContactForm` via `fetcher.Form`; deferred loaders stream stats via `Suspense`/`Await` (`routes/quote.tsx`). Simulated failure is deterministic and opt-in, never RNG: `mock/simulate.server.ts` exposes seeded `maybeFail`/`simulatedLatency`, gated by a control or `?chaos=1`, so audits stay reproducible.
+
+**Color lab** (`/admin/studio`): `app/theme/oklch.ts` is the pure color engine (ramp generation, OKLCH→sRGB with gamut detection, WCAG contrast/level, APCA Lc). The lab reads the live accent from the Drawer and visualizes the ramp, the primitive→semantic→consumer cascade, and contrast readouts; it adds no sliders of its own (the Drawer is the single control surface).
+
+**Animation policy** (kept in lanes): Motion = scroll-reveal / page-level only; Base UI `data-state` + CSS transforms = `<Sheet>` (no Motion spring); Canvas 2D = the present-day `HeroGraph` (`d3-force`) and the 2056 `SpaceField`/`OrbitalCore`. One shared `useReducedMotion` consumed by all of them.
 
 ## 2056 "future mode" (the `era` flag)
 
-A second skin lives alongside the present-day site. `ThemeState.era` (`"standard" | "2056"`) is toggled by the bottom-right **2056** pill (`app/components/controls/EraToggle.tsx`) and applies an **`.era-2056` class on `<html>`** (ThemeProvider suppresses the present-day inline token overrides so the curated class skin wins; root.tsx sets it at SSR too). The skin lives at the end of `app/app.css`: a holographic OKLCH palette whose hue rides an animated `@property --iris` (a unitless **`<number>`** — it is added to a bare hue in `oklch(... calc(H + var(--iris)))`, so it must never be an `<angle>`, that mix is invalid CSS and silently breaks the dependent tokens to transparent). The global future-OS layer (`app/components/era/`) renders only in 2056: `Era2056Shell` (HUD), `SpaceField` (Canvas grid), `CommandPalette` (Cmd-K), with a bespoke `Home2056` (Voronoi/orbital hero, decode text). All era effects are reduced-motion safe and client-gated (SSR-safe).
+A second skin lives alongside the present-day site. `ThemeState.era` (`"standard" | "2056"`) is toggled by the bottom-right **2056** pill (`app/components/controls/EraToggle.tsx`) and applies an **`.era-2056` class on `<html>`** (ThemeProvider suppresses the present-day inline token overrides so the curated class skin wins; root.tsx sets it at SSR too). The skin lives at the end of `app/app.css`: a holographic OKLCH palette whose hue rides an animated `@property --iris` (a unitless **`<number>`** — it is added to a bare hue in `oklch(... calc(H + var(--iris)))`, so it must never be an `<angle>`, that mix is invalid CSS and silently breaks the dependent tokens to transparent). The global future-OS layer (`app/components/era/`) renders only in 2056: `Era2056Shell` (HUD), `SpaceField` (Canvas grid), `CommandPalette` (Cmd-K), with a bespoke `Home2056` (a calm grid floor via `SpaceField` plus an `OrbitalCore` focal object, decode text). All era effects are reduced-motion safe and client-gated (SSR-safe).
 
 ## Conventions
 
@@ -64,12 +68,12 @@ A second skin lives alongside the present-day site. `ThemeState.era` (`"standard
 - Component conventions: export CVA variant configs alongside components; merge classes with `cn()`; use `data-[disabled]` / `hover:not-data-disabled` (Base UI sets data attributes, not `:disabled`); `bg-surface` not `bg-white`; `forwardRef` only when a DOM ref is needed (set `displayName`). Named function components, named exports, no default exports.
 - **Color is OKLCH only** (no hex/rgb/hsl), via semantic tokens — never raw Tailwind color utilities (`blue-500`). Spacing/radius via tokens, never arbitrary px, or density/radius controls won't cascade.
 - Always ship light AND dark; mobile-first responsive.
-- `/explore` canvas: never read `window` during render (measure on mount / client-only); ship the semantic list/card a11y fallback.
+- Canvas components (`HeroGraph`, `SpaceField`, `OrbitalCore`): never read `window` during render (measure on mount / client-only); static under reduced motion.
 - Simulated failures are off by default and seeded/explicitly triggered (`?chaos=1` / a control), never pure RNG, so audits stay deterministic.
 
 ## Impeccable workflow
 
-Front-loaded: `npx impeccable install` then `/impeccable init` generates `PRODUCT.md` (strategy/principles), `DESIGN.md` (visual spec), and `.impeccable/live/config.json`. Re-run `/impeccable document` (no `--seed`) after tokens are real. Each surface goes `shape → build → critique → audit → polish`; use `live` mode for high-touch pages. `/colophon` and `/system` surface PRODUCT.md/DESIGN.md as evidence.
+`PRODUCT.md` (strategy/principles) and `DESIGN.md` (visual spec, Stitch six-section format with OKLCH frontmatter) plus the `.impeccable/design.json` sidecar are committed; regenerate `DESIGN.md` via `/impeccable document` after token changes. Each surface goes `shape → build → critique → audit → polish`; use `live` mode for high-touch pages. `/admin/behind-the-rebrand`, `/admin/components`, and `/admin/studio` surface this as live evidence.
 
 ## Commits (history is a deliverable)
 
