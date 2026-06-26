@@ -12,6 +12,19 @@ import { Avatar } from "../ui/Avatar";
 import { Separator } from "../ui/Separator";
 import { Banner } from "../ui/Banner";
 import { Sheet } from "../ui/Sheet";
+import { Textarea } from "../ui/Textarea";
+import { Field } from "../ui/Field";
+import { Select } from "../ui/Select";
+import { RadioGroup, RadioItem } from "../ui/RadioGroup";
+import { Slider } from "../ui/Slider";
+import { Menu } from "../ui/Menu";
+import { Breadcrumbs } from "../ui/Breadcrumbs";
+import { Accordion } from "../ui/Accordion";
+import { Popover } from "../ui/Popover";
+import { ToastDemo } from "../ui/Toast";
+import { Table, THead, TBody, TR, TH, TD } from "../ui/Table";
+import { Progress } from "../ui/Progress";
+import { Skeleton } from "../ui/Skeleton";
 import type { ApiRow } from "./ApiTable";
 
 export type DocSection = { id: string; title: string; preview: ReactNode; code: string };
@@ -410,5 +423,303 @@ export const docs: Record<string, DocEntry> = {
       "Built on the Base UI Dialog primitive: focus trap, scroll lock, Escape to close, and aria wiring.",
       "The global theme Drawer is this component with side=right.",
     ],
+  },
+
+  textarea: {
+    importLine: `import { Textarea } from "~/components/ui/Textarea";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: <Textarea placeholder="Tell us what is going on..." aria-label="Message" className="max-w-sm" />,
+        code: `<Textarea placeholder="Tell us what is going on..." />`,
+      },
+    ],
+    api: [{ prop: "...props", type: "TextareaHTMLAttributes", description: "All native textarea props." }],
+    accessibility: ["A native textarea; always pair with a label or aria-label."],
+  },
+
+  select: {
+    importLine: `import { Select } from "~/components/ui/Select";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Select
+            className="max-w-xs"
+            defaultValue="managed"
+            items={[
+              { value: "managed", label: "Managed IT" },
+              { value: "repair", label: "Computer repair" },
+              { value: "hosting", label: "Web hosting" },
+            ]}
+          />
+        ),
+        code: `<Select\n  defaultValue="managed"\n  items={[{ value: "managed", label: "Managed IT" }, ...]}\n/>`,
+      },
+    ],
+    api: [
+      { prop: "items", type: "{ value, label }[]", description: "The options to choose from." },
+      { prop: "value / defaultValue", type: "string", description: "Selected value (controlled / uncontrolled)." },
+      { prop: "onValueChange", type: "(value: string) => void", description: "Selection handler." },
+    ],
+    accessibility: ["Built on the Base UI Select primitive: keyboard navigation, typeahead, and listbox ARIA."],
+  },
+
+  "radio-group": {
+    importLine: `import { RadioGroup, RadioItem } from "~/components/ui/RadioGroup";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <RadioGroup defaultValue="monthly">
+            <RadioItem value="monthly">Monthly</RadioItem>
+            <RadioItem value="annual">Annual</RadioItem>
+          </RadioGroup>
+        ),
+        code: `<RadioGroup defaultValue="monthly">\n  <RadioItem value="monthly">Monthly</RadioItem>\n  <RadioItem value="annual">Annual</RadioItem>\n</RadioGroup>`,
+      },
+    ],
+    api: [
+      { prop: "value / defaultValue", type: "string", description: "Selected radio." },
+      { prop: "onValueChange", type: "(value: string) => void", description: "Change handler." },
+    ],
+    accessibility: ["Built on the Base UI RadioGroup: arrow-key navigation and radiogroup/radio ARIA."],
+  },
+
+  slider: {
+    importLine: `import { Slider } from "~/components/ui/Slider";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: <Slider defaultValue={40} className="max-w-xs" aria-label="Amount" />,
+        code: `<Slider defaultValue={40} />`,
+      },
+    ],
+    api: [
+      { prop: "value / defaultValue", type: "number | number[]", description: "Current value(s)." },
+      { prop: "min / max / step", type: "number", description: "Range bounds and increment." },
+      { prop: "onValueChange", type: "(value) => void", description: "Change handler." },
+    ],
+    accessibility: ["Built on the Base UI Slider: keyboard support and slider ARIA; give it an aria-label."],
+  },
+
+  field: {
+    importLine: `import { Field } from "~/components/ui/Field";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Field label="Email" hint="We never share it." className="max-w-sm">
+            <Input type="email" placeholder="you@business.com" aria-label="Email" />
+          </Field>
+        ),
+        code: `<Field label="Email" hint="We never share it.">\n  <Input type="email" />\n</Field>`,
+      },
+      {
+        id: "error",
+        title: "With error",
+        preview: (
+          <Field label="Email" error="Enter a valid email." className="max-w-sm">
+            <Input aria-label="Email" aria-invalid />
+          </Field>
+        ),
+        code: `<Field label="Email" error="Enter a valid email.">\n  <Input aria-invalid />\n</Field>`,
+      },
+    ],
+    api: [
+      { prop: "label", type: "string", description: "The field label." },
+      { prop: "hint", type: "ReactNode", description: "Helper text under the control." },
+      { prop: "error", type: "ReactNode", description: "Error message (shown instead of the hint)." },
+    ],
+    accessibility: ["Renders a label element; pass htmlFor plus a matching id on the control to associate them."],
+  },
+
+  menu: {
+    importLine: `import { Menu } from "~/components/ui/Menu";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Menu
+            trigger={
+              <Button variant="outline" size="sm">
+                Actions
+              </Button>
+            }
+            items={[{ label: "Rename" }, { label: "Duplicate" }, { label: "Delete" }]}
+          />
+        ),
+        code: `<Menu\n  trigger={<Button>Actions</Button>}\n  items={[{ label: "Rename", onClick }, ...]}\n/>`,
+      },
+    ],
+    api: [
+      { prop: "trigger", type: "ReactElement", description: "Element that opens the menu." },
+      { prop: "items", type: "{ label, onClick }[]", description: "The menu items." },
+    ],
+    accessibility: ["Built on the Base UI Menu: roving focus, typeahead, Escape to close, and menu ARIA."],
+  },
+
+  breadcrumbs: {
+    importLine: `import { Breadcrumbs } from "~/components/ui/Breadcrumbs";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Breadcrumbs
+            items={[{ label: "Home", href: "#" }, { label: "Services", href: "#" }, { label: "Computer repair" }]}
+          />
+        ),
+        code: `<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Computer repair" }]} />`,
+      },
+    ],
+    api: [{ prop: "items", type: "{ label, href? }[]", description: "The trail; the last item is the current page." }],
+    accessibility: ["A nav[aria-label=Breadcrumb] with an ordered list; the current page carries aria-current."],
+  },
+
+  accordion: {
+    importLine: `import { Accordion } from "~/components/ui/Accordion";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Accordion
+            className="max-w-md"
+            items={[
+              { value: "a", trigger: "What is managed IT?", content: "Proactive monitoring and maintenance." },
+              { value: "b", trigger: "Do you come on-site?", content: "Yes, across Central Texas and the Hill Country." },
+            ]}
+          />
+        ),
+        code: `<Accordion items={[{ value, trigger, content }, ...]} />`,
+      },
+    ],
+    api: [{ prop: "items", type: "{ value, trigger, content }[]", description: "The collapsible sections." }],
+    accessibility: ["Built on the Base UI Accordion: header/button/region wiring and keyboard support."],
+  },
+
+  popover: {
+    importLine: `import { Popover } from "~/components/ui/Popover";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Popover
+            trigger={
+              <Button variant="outline" size="sm">
+                Details
+              </Button>
+            }
+            title="Service window"
+          >
+            <p>On-site visits run 8am to 6pm, Monday through Friday.</p>
+          </Popover>
+        ),
+        code: `<Popover trigger={<Button>Details</Button>} title="Service window">\n  <p>...</p>\n</Popover>`,
+      },
+    ],
+    api: [
+      { prop: "trigger", type: "ReactElement", description: "Element that opens the popover." },
+      { prop: "title", type: "ReactNode", description: "Optional heading." },
+      { prop: "children", type: "ReactNode", description: "Popover body." },
+    ],
+    accessibility: ["Built on the Base UI Popover: focus management, Escape to close, and aria wiring."],
+  },
+
+  toast: {
+    importLine: `import { ToastProvider, useToast } from "~/components/ui/Toast";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: <ToastDemo />,
+        code: `// wrap a subtree once\n<ToastProvider>{children}</ToastProvider>\n\n// then, anywhere inside\nconst toast = useToast();\ntoast.add({ title: "Backup complete", description: "..." });`,
+      },
+    ],
+    api: [
+      { prop: "ToastProvider", type: "component", description: "Wrap the subtree; renders the viewport." },
+      { prop: "useToast().add", type: "({ title, description }) => void", description: "Raise a toast." },
+    ],
+    accessibility: ["Built on the Base UI Toast: a polite live region with timeout and swipe dismissal."],
+  },
+
+  table: {
+    importLine: `import { Table, THead, TBody, TR, TH, TD } from "~/components/ui/Table";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <Table className="max-w-md">
+            <THead>
+              <TR>
+                <TH>Service</TH>
+                <TH>Status</TH>
+              </TR>
+            </THead>
+            <TBody>
+              <TR>
+                <TD>Web hosting</TD>
+                <TD>Online</TD>
+              </TR>
+              <TR>
+                <TD>Backups</TD>
+                <TD>Online</TD>
+              </TR>
+            </TBody>
+          </Table>
+        ),
+        code: `<Table>\n  <THead><TR><TH>Service</TH><TH>Status</TH></TR></THead>\n  <TBody><TR><TD>Web hosting</TD><TD>Online</TD></TR></TBody>\n</Table>`,
+      },
+    ],
+    api: [
+      { prop: "Table / THead / TBody / TR / TH / TD", type: "components", description: "Styled native table elements; className merges." },
+    ],
+    accessibility: ["Native table semantics; use TH for header cells and add a caption when the table needs context."],
+  },
+
+  progress: {
+    importLine: `import { Progress } from "~/components/ui/Progress";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: <Progress value={68} className="max-w-xs" aria-label="Backup progress" />,
+        code: `<Progress value={68} />`,
+      },
+    ],
+    api: [
+      { prop: "value", type: "number | null", description: "0-100; null for indeterminate." },
+      { prop: "max", type: "number", default: "100", description: "Maximum value." },
+    ],
+    accessibility: ["Built on the Base UI Progress: role=progressbar with aria-valuenow / min / max."],
+  },
+
+  skeleton: {
+    importLine: `import { Skeleton } from "~/components/ui/Skeleton";`,
+    sections: [
+      {
+        id: "usage",
+        title: "Usage",
+        preview: (
+          <div className="w-full max-w-xs space-y-2">
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-1/2" />
+          </div>
+        ),
+        code: `<Skeleton className="h-4 w-3/4" />`,
+      },
+    ],
+    api: [{ prop: "className", type: "string", description: "Set the width, height, and shape." }],
+    accessibility: ["Decorative (aria-hidden); mark the surrounding region aria-busy while content loads."],
   },
 };

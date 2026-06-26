@@ -22,6 +22,19 @@ export const components: ComponentMeta[] = [
   { slug: "avatar", name: "Avatar", category: "Data display", summary: "Represent a person or entity." },
   { slug: "separator", name: "Separator", category: "Data display", summary: "Divide content into sections." },
   { slug: "banner", name: "Banner", category: "Feedback", summary: "Communicate a status or message." },
+  { slug: "textarea", name: "Textarea", category: "Forms", summary: "A multi-line text field." },
+  { slug: "select", name: "Select", category: "Forms", summary: "Pick one option from a list." },
+  { slug: "radio-group", name: "Radio group", category: "Forms", summary: "Choose one of several options." },
+  { slug: "slider", name: "Slider", category: "Forms", summary: "Pick a value along a range." },
+  { slug: "field", name: "Field", category: "Forms", summary: "Label, control, and hint or error together." },
+  { slug: "menu", name: "Menu", category: "Navigation", summary: "A dropdown list of actions." },
+  { slug: "breadcrumbs", name: "Breadcrumbs", category: "Navigation", summary: "Show the path to the current page." },
+  { slug: "accordion", name: "Accordion", category: "Navigation", summary: "Expand and collapse sections." },
+  { slug: "popover", name: "Popover", category: "Overlays", summary: "Floating content anchored to a trigger." },
+  { slug: "toast", name: "Toast", category: "Overlays", summary: "A brief, dismissible notification." },
+  { slug: "table", name: "Table", category: "Data display", summary: "Rows and columns of data." },
+  { slug: "progress", name: "Progress", category: "Data display", summary: "Show completion of a task." },
+  { slug: "skeleton", name: "Skeleton", category: "Feedback", summary: "A placeholder while content loads." },
 ];
 
 export const categories: Category[] = ["Forms", "Navigation", "Overlays", "Data display", "Feedback"];
