@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet } from "react-router";
 import { cn } from "../lib/cn";
+import { Logo } from "../components/brand/Logo";
 
 const adminNav = [
   { to: "/admin/components", label: "Components" },
@@ -13,9 +14,9 @@ export default function AdminLayout() {
     <div className="min-h-dvh">
       <header className="sticky top-0 z-20 border-b border-border bg-surface">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-          <div className="flex items-baseline gap-2">
-            <Link to="/admin" className="font-sans text-sm font-semibold text-ink">
-              cray networks
+          <div className="flex items-center gap-2">
+            <Link to="/admin" aria-label="Cray Networks admin">
+              <Logo />
             </Link>
             <span className="font-sans text-xs text-muted">admin</span>
           </div>
