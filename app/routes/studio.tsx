@@ -1,6 +1,10 @@
 import { useState, type ReactNode } from "react";
-import { primitives, oklchString } from "../theme/tokens";
+import { primitives } from "../theme/tokens";
 import { Rationale } from "../components/site/Rationale";
+import { useTheme } from "../theme/ThemeProvider";
+import { clamp, formatOklch, wcagContrast, wcagLevel, apcaLc, oklchToRgb, ramp, type Channels } from "../theme/oklch";
+import { Button } from "../components/ui/Button";
+import { Badge } from "../components/ui/Badge";
 
 export function meta() {
   return [
@@ -32,21 +36,139 @@ const SCALE = [
   { label: "Caption", k: -1 },
 ];
 
-const SWATCHES = [
-  { name: "primary", cls: "bg-primary" },
-  { name: "primary-hover", cls: "bg-primary-hover" },
-  { name: "sky", cls: "bg-sky" },
-  { name: "navy", cls: "bg-navy" },
-  { name: "amber", cls: "bg-amber" },
-  { name: "surface", cls: "bg-surface" },
-  { name: "surface-2", cls: "bg-surface-2" },
-  { name: "ink", cls: "bg-ink" },
-  { name: "muted", cls: "bg-muted" },
-  { name: "border", cls: "bg-border" },
-  { name: "success", cls: "bg-success" },
-  { name: "warning", cls: "bg-warning" },
-  { name: "danger", cls: "bg-danger" },
-] as const;
+const fmt = (ch: Channels) =>
+  `oklch(${(Math.round(ch.l * 100) / 100).toString()} ${(Math.round(ch.c * 1000) / 1000).toString()} ${Math.round(ch.h)})`;
+
+function Swatch({ ch, label }: { ch: Channels; label: string }) {
+  const { inGamut } = oklchToRgb(ch);
+  return (
+    <div className="rounded-lg border border-border p-3">
+      <div className="h-12 rounded-md border border-border" style={{ backgroundColor: formatOklch(ch) }} />
+      <div className="mt-2 font-sans text-xs">
+        <div className="font-medium text-ink">{label}</div>
+        <div className="font-mono text-muted">
+          {fmt(ch)}
+          {inGamut ? "" : " (clamped)"}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ContrastRow({ fg, bg, label, large }: { fg: Channels; bg: Channels; label: string; large?: boolean }) {
+  const ratio = wcagContrast(fg, bg);
+  const level = wcagLevel(ratio, large);
+  const lc = apcaLc(fg, bg);
+  return (
+    <div className="flex items-center gap-3 border-t border-border py-3 font-sans text-sm sm:gap-4">
+      <span
+        className="grid size-9 shrink-0 place-items-center rounded-md border border-border text-xs font-semibold"
+        style={{ backgroundColor: formatOklch(bg), color: formatOklch(fg) }}
+      >
+        Aa
+      </span>
+      <span className="min-w-0 flex-1 truncate text-ink">{label}</span>
+      <span className="tabular-nums text-muted">{ratio.toFixed(2)}:1</span>
+      <span
+        className={`w-10 text-right font-mono text-xs font-semibold uppercase ${level === "fail" ? "text-danger-strong" : "text-success-strong"}`}
+      >
+        {level}
+      </span>
+      <span className="hidden w-20 text-right tabular-nums text-muted sm:inline">Lc {lc}</span>
+    </div>
+  );
+}
+
+const c01 = (x: number) => clamp(0, 1, x);
+
+function ColorLab() {
+  const { state } = useTheme();
+  const mode = state.mode;
+  const accent = state.accent;
+  const t = primitives[mode];
+
+  const primary: Channels = accent;
+  const primaryHover: Channels = { l: c01(mode === "dark" ? accent.l + 0.06 : accent.l - 0.06), c: accent.c, h: accent.h };
+  const sky: Channels = { l: c01(accent.l + 0.12), c: accent.c, h: accent.h };
+  const primaryStrong: Channels = { l: mode === "dark" ? 0.8 : 0.46, c: accent.c, h: accent.h };
+  const onPrimary: Channels = mode === "dark" ? { l: 0.16, c: 0.02, h: 245 } : { l: 0.99, c: 0.004, h: 240 };
+  const onNavy: Channels = { l: 0.96, c: 0.01, h: 240 };
+  const accentRamp = ramp({ c: accent.c, h: accent.h });
+
+  const pairs: { label: string; fg: Channels; bg: Channels; large?: boolean }[] = [
+    { label: "on-primary on primary (button)", fg: onPrimary, bg: primary },
+    { label: "ink on surface (body)", fg: t.ink, bg: t.surface },
+    { label: "muted on surface (secondary)", fg: t.muted, bg: t.surface },
+    { label: "primary-strong on surface (link)", fg: primaryStrong, bg: t.surface },
+    { label: "on-navy on navy (hero band)", fg: onNavy, bg: t.navy, large: true },
+  ];
+
+  return (
+    <section className="mt-16 border-t border-border pt-10">
+      <h2 className="text-2xl font-semibold tracking-tight text-ink">Color lab</h2>
+      <p className="mt-2 max-w-2xl leading-relaxed text-muted">
+        This reads the live accent from the Theme drawer. Drag the hue, chroma, or lightness there and
+        the ramp, the token cascade, and the contrast readouts below all update at once.
+      </p>
+
+      <div className="mt-6">
+        <div className="font-sans text-xs font-semibold text-muted">
+          Accent ramp (chroma {accent.c.toFixed(3)}, hue {Math.round(accent.h)})
+        </div>
+        <div className="mt-2 flex overflow-hidden rounded-lg border border-border">
+          {accentRamp.map((ch) => (
+            <div key={ch.l} className="h-12 flex-1" style={{ backgroundColor: formatOklch(ch) }} title={`L ${ch.l}`} />
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 grid items-center gap-4 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1.4fr)_auto_minmax(0,1fr)]">
+        <div className="rounded-xl border border-border bg-surface-2 p-4">
+          <div className="font-sans text-xs font-semibold text-muted">Primitive channels</div>
+          <div className="mt-2 font-mono text-sm text-ink">--primary-l: {accent.l.toFixed(2)}</div>
+          <div className="font-mono text-sm text-ink">--primary-c: {accent.c.toFixed(3)}</div>
+          <div className="font-mono text-sm text-ink">--primary-h: {Math.round(accent.h)}</div>
+          <div className="mt-2 font-sans text-xs text-muted">set live in the Drawer</div>
+        </div>
+        <div aria-hidden="true" className="hidden text-2xl text-muted lg:block">&rarr;</div>
+        <div className="grid grid-cols-2 gap-2">
+          <Swatch ch={primary} label="primary" />
+          <Swatch ch={primaryHover} label="primary-hover" />
+          <Swatch ch={sky} label="sky" />
+          <Swatch ch={primaryStrong} label="primary-strong" />
+        </div>
+        <div aria-hidden="true" className="hidden text-2xl text-muted lg:block">&rarr;</div>
+        <div className="space-y-3 rounded-xl border border-border bg-surface-2 p-4">
+          <div className="font-sans text-xs font-semibold text-muted">Consumers</div>
+          <Button size="sm">Button</Button>
+          <div>
+            <Badge tone="primary">Badge</Badge>
+          </div>
+          <div className="font-sans text-sm font-medium text-primary-strong">A primary link</div>
+        </div>
+      </div>
+
+      <div className="mt-10">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="font-sans text-lg font-semibold text-ink">Contrast readouts</h3>
+          <span className="font-sans text-xs text-muted">{mode} mode &middot; WCAG / level &middot; APCA Lc</span>
+        </div>
+        <div className="mt-2">
+          {pairs.map((p) => (
+            <ContrastRow key={p.label} fg={p.fg} bg={p.bg} label={p.label} large={p.large} />
+          ))}
+        </div>
+      </div>
+
+      <Rationale title="Why refined blue, navy, and OKLCH" className="mt-8">
+        Cray already owned a cyan-leaning blue, a deep navy, and white; the rebrand systematizes that
+        identity rather than inventing a new one. Authoring it in OKLCH instead of hex gives
+        perceptually even ramps and keeps light and dark in lockstep, and the lone amber accent,
+        already present on the old site, adds warmth without introducing a second brand color.
+      </Rationale>
+    </section>
+  );
+}
 
 const SPECIMEN =
   "Cray Networks keeps Central Texas businesses online, from the machine that will not boot to the network you never have to think about.";
@@ -157,37 +279,7 @@ export default function Studio() {
         so the controls above move real axes.
       </Rationale>
 
-      {/* Token ramp (read from tokens.ts) */}
-      <section className="mt-16 border-t border-border pt-10">
-        <h2 className="text-2xl font-semibold tracking-tight text-ink">Tokens</h2>
-        <p className="mt-2 max-w-2xl leading-relaxed text-muted">
-          The semantic palette in OKLCH. Swatches fill from the live theme; the value below each is
-          the canonical light-mode channel, imported directly from <code className="font-mono text-sm">tokens.ts</code>.
-        </p>
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {SWATCHES.map((s) => {
-            const keyMap: Record<string, string> = { "primary-hover": "primaryHover", "surface-2": "surface2" };
-            const lk = (keyMap[s.name] ?? s.name) as keyof (typeof primitives)["light"];
-            const channels = primitives.light[lk];
-            return (
-              <div key={s.name} className="rounded-lg border border-border p-3">
-                <div className={`h-12 rounded-md border border-border ${s.cls}`} />
-                <div className="mt-2 font-sans text-xs">
-                  <div className="font-medium text-ink">{s.name}</div>
-                  <div className="font-mono text-muted">{channels ? oklchString(channels) : "derived"}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <Rationale title="Why refined blue, navy, and OKLCH" className="mt-6">
-          Cray already owned a cyan-leaning blue, a deep navy, and white; the rebrand systematizes
-          that identity rather than inventing a new one. Authoring it in OKLCH instead of hex gives
-          perceptually even ramps and keeps light and dark in lockstep, and the lone amber accent,
-          already present on the old site, adds warmth without introducing a second brand color.
-        </Rationale>
-      </section>
+      <ColorLab />
     </div>
   );
 }
