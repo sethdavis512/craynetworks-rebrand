@@ -53,7 +53,14 @@ export function OrbitalCore() {
       pointer.y += (pointer.ty - pointer.y) * 0.05;
       ctx.clearRect(0, 0, w, h);
 
-      const hue = 210 + Math.sin(t * 0.13) * 48;
+      const isDark = document.documentElement.classList.contains("dark");
+      const hue = 234 + Math.sin(t * 0.13) * 22; // cyan .. blue-violet, no muddy green
+      // Light mode: a clean light brand-cyan (complements the airy palette). Dark: a bright glow.
+      const cBloom = isDark ? `hsla(${hue}, 90%, 78%, 0.45)` : `hsla(${hue}, 78%, 84%, 0.22)`;
+      const cRing = isDark ? `hsla(${hue}, 80%, 72%, 0.3)` : `hsla(${hue}, 66%, 58%, 0.42)`;
+      const cSpoke = isDark ? `hsla(${hue}, 85%, 78%, 0.12)` : `hsla(${hue}, 64%, 60%, 0.16)`;
+      const cDot = isDark ? `hsla(${hue + 20}, 95%, 82%, 0.95)` : `hsla(${hue}, 82%, 56%, 0.95)`;
+      const cCore = isDark ? `hsla(${hue + 30}, 95%, 86%, 0.95)` : `hsla(${hue}, 84%, 54%, 0.95)`;
       // Sit right-of-center (closer to center than before) and cap the size so the rings
       // never run off the edge regardless of the hero's aspect ratio.
       const cx = w * 0.7 + pointer.x * 22;
@@ -62,7 +69,7 @@ export function OrbitalCore() {
       const tilt = 0.42 + pointer.y * 0.12; // orbital plane squash, responds to cursor
 
       const bloom = ctx.createRadialGradient(cx, cy, 0, cx, cy, base * 0.5);
-      bloom.addColorStop(0, `hsla(${hue}, 90%, 78%, 0.45)`);
+      bloom.addColorStop(0, cBloom);
       bloom.addColorStop(1, "hsla(0, 0%, 0%, 0)");
       ctx.fillStyle = bloom;
       ctx.beginPath();
@@ -72,7 +79,7 @@ export function OrbitalCore() {
       ctx.lineWidth = 1;
       for (const ring of RINGS) {
         const rr = base * ring.r;
-        ctx.strokeStyle = `hsla(${hue}, 80%, 72%, 0.28)`;
+        ctx.strokeStyle = cRing;
         ctx.beginPath();
         ctx.ellipse(cx, cy, rr, rr * tilt, 0, 0, Math.PI * 2);
         ctx.stroke();
@@ -81,13 +88,13 @@ export function OrbitalCore() {
           const ang = t * ring.speed * Math.PI * 2 + (d / ring.dots) * Math.PI * 2 + ring.r * 5;
           const dx = cx + Math.cos(ang) * rr;
           const dy = cy + Math.sin(ang) * rr * tilt;
-          ctx.strokeStyle = `hsla(${hue}, 85%, 78%, 0.12)`;
+          ctx.strokeStyle = cSpoke;
           ctx.beginPath();
           ctx.moveTo(cx, cy);
           ctx.lineTo(dx, dy);
           ctx.stroke();
           const g = ctx.createRadialGradient(dx, dy, 0, dx, dy, 7);
-          g.addColorStop(0, `hsla(${hue + 20}, 95%, 82%, 0.95)`);
+          g.addColorStop(0, cDot);
           g.addColorStop(1, "hsla(0, 0%, 0%, 0)");
           ctx.fillStyle = g;
           ctx.beginPath();
@@ -96,7 +103,7 @@ export function OrbitalCore() {
         }
       }
 
-      ctx.fillStyle = `hsla(${hue + 30}, 95%, 86%, 0.95)`;
+      ctx.fillStyle = cCore;
       ctx.beginPath();
       ctx.arc(cx, cy, 4 + (reduced ? 0 : Math.sin(t * 1.5) * 1.2), 0, Math.PI * 2);
       ctx.fill();
