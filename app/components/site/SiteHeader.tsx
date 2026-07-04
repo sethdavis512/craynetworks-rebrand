@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { cn } from "../../lib/cn";
 import { useTheme } from "../../theme/ThemeProvider";
 import { Logo } from "../brand/Logo";
 import { buttonVariants } from "../ui/Button";
@@ -28,7 +29,7 @@ export function SiteHeader() {
   const vt = state.era === "2056";
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-surface">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-4 sm:px-6">
         <Link to="/" aria-label="Cray Networks home" viewTransition={vt}>
           <Logo />
         </Link>
@@ -38,7 +39,7 @@ export function SiteHeader() {
               <button
                 type="button"
                 aria-label="Join with a code"
-                className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 font-sans text-sm text-muted transition-colors hover:bg-surface-2 hover:text-ink"
+                className="inline-flex items-center gap-2 rounded-md px-2 py-1.5 font-sans text-sm text-muted transition-colors hover:bg-surface-2 hover:text-ink sm:px-3"
               >
                 <span
                   aria-hidden="true"
@@ -54,7 +55,7 @@ export function SiteHeader() {
                     WebkitMaskPosition: "center",
                   }}
                 />
-                ConnectWise
+                <span className="hidden sm:inline">ConnectWise</span>
               </button>
             }
             title={
@@ -79,7 +80,11 @@ export function SiteHeader() {
           >
             Estimate
           </Link>
-          <Link to="/#contact" viewTransition={vt} className={buttonVariants({ size: "sm" })}>
+          <Link
+            to="/#contact"
+            viewTransition={vt}
+            className={cn(buttonVariants({ size: "sm" }), "max-sm:px-2")}
+          >
             Request a quote
           </Link>
         </nav>

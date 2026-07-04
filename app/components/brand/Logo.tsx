@@ -21,7 +21,7 @@ export function Logo({ className, showWordmark = true }: { className?: string; s
         </g>
       </svg>
       {showWordmark ? (
-        <span className="font-sans text-base font-semibold tracking-tight">
+        <span className="whitespace-nowrap font-sans text-base font-semibold tracking-tight">
           cray <span className="text-primary">networks</span>
         </span>
       ) : null}

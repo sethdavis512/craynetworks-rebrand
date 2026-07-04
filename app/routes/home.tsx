@@ -115,7 +115,9 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3">
                     <h3 className="font-sans text-xl font-semibold text-ink">{featured.name}</h3>
-                    <Badge tone="primary">Most popular</Badge>
+                    <Badge tone="primary" className="shrink-0">
+                      Most popular
+                    </Badge>
                   </div>
                   <p className="mt-2 max-w-xl leading-relaxed text-muted">{featured.body}</p>
                 </div>
