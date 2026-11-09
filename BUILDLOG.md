@@ -118,7 +118,7 @@ build-stage timeline, and an interactive logo showcase (zoom + annotated anatomy
 **Built:** Production on Railway. A Bun-build / Node-serve multi-stage Dockerfile (Bun installs and
 builds; Node runs `react-router-serve`, avoiding the Bun + react-router-serve crash; glibc
 throughout), builder pinned via `railway.json`. The service is connected to this GitHub repo, so every
-push to `main` auto-deploys. Live at https://cray-networks-rebrand.up.railway.app.
+push to `main` auto-deploys.
 **Why:** A portfolio piece has to be reachable, and the pipeline itself is part of the craft.
 **Demonstrates:** Container/runtime reasoning and a push-to-deploy workflow.
 
