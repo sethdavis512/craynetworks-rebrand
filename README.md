@@ -5,8 +5,6 @@ design-engineering portfolio piece. The bar is "this person understands how desi
 function," demonstrated live: **typography**, **token architecture**, and **real-time theming**
 you can drive yourself.
 
-**Live:** https://cray-networks-rebrand.up.railway.app
-
 ## Highlights
 
 - **Live theming engine.** The canonical OKLCH tokens in `app/app.css` are never mutated at
